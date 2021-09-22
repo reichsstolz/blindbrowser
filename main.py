@@ -1,4 +1,6 @@
-
+from classes import Window
+from PyQt5.QtWidgets import QApplication
+import sys
 """
 1) написать окно
 2) курлить страницу и выводить текст в кавансы
@@ -8,6 +10,7 @@
 
 """
 
-# main loop
-while True:
-    pass
+if __name__== "__main__":
+    app = QApplication(sys.argv)
+    win = Window()
+    sys.exit(app.exec_())
