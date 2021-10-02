@@ -51,6 +51,7 @@ class Browser:
     async def _post_request(self, url):
         pass
 
+
 class Tag:
     def __init__(self, tag_type, parameters):
         self.tag_type=tag_type
@@ -74,7 +75,7 @@ class Parser(HTMLParser):
         new_tag = Tag(tag, attrs)
         if new_tag.parameters.get("href"):
             if new_tag["href"].endwith(".ccs"):
-                pass  # write css handler
+                pass
         if self.parent_tag:
             self.parent_tag[-1].add_children(new_tag)
         self.parent_tag.append(new_tag)
