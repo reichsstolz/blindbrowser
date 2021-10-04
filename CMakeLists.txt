@@ -22,13 +22,14 @@ find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 
 add_library(sources STATIC
-        src/MatrixWidget.cpp
-        src/Keyboard.cpp
-        src/Window.cpp
+        ./src/MatrixWidget.cpp
+        ./src/Keyboard.cpp
+        ./src/Window.cpp
         )
 add_executable(main main.cpp)
 
-target_include_directories(/headers)
+target_include_directories(./headers)
 
-target_link_libraries(main Qt5::Core Qt5::Widegets)
-target_link_libraries(sources Qt5::Core Qt5::Widegets)
+
+target_link_libraries(sources Qt5::Core Qt5::Widgets)
+target_link_libraries(main Qt5::Core Qt5::Widgets)
