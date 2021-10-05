@@ -5,11 +5,12 @@ import aiohttp
 import asyncio
 import re
 
+
 class Browser:
     def __init__(self):
         self.session = aiohttp.ClientSession()
         self.loop = asyncio.get_event_loop()
-        self.current_url=None
+        self.current_url = None
 
     def dead(self):
         self.loop.run_until_complete(self.session.close())
@@ -20,31 +21,36 @@ class Browser:
     def handle_css(self, url):
         return self.loop.run_until_complete(self._handle_css(url))
 
-
     async def _make_request(self, url, parsing):
         if url.startswith("/") and parsing:
             url = self.current_url + url
         elif not url.startswith("http") and parsing:
-            url= self.current_url+"/"+url
+            url = self.current_url + "/" + url
         elif not parsing:
-            self.current_url = re.search(r"https:\/\/[a-zA-Z0-9.-]{1,}|http:\/\/[a-zA-Z0-9.-]{1,}", url).group(0)
+            self.current_url = re.search(
+                r"https:\/\/[a-zA-Z0-9.-]{1,}|http:\/\/[a-zA-Z0-9.-]{1,}", url
+            ).group(0)
         resp = await self.session.get(url)
         print(resp.status)
         return await resp.text()
 
-    async def _post_request(self, url):
+    async def _post_request(self, url, args*):
         pass
 
     async def _handle_css(self, parsed):
         parsed = re.findall(r"([a-zA-Z\.#,_\-:]{1,})\s*\{([^}]{1,})\}", parsed)
-        css_tree=[]
-        temp_attrs={}
+        css_tree = []
+        temp_attrs = {}
         for tags, attrs in parsed:
-            for key, val in re.findall(r"([a-z\-]{1,}):([^;]{1,});?",attrs):
-                 temp_attrs[key]=val
-            for types in tags.split(","):
-                css_tree.append(CssDeclaration(types,temp_attrs))
-                temp_attrs.clear()
+            for key, val in re.findall(r"([a-z\-]{1,}):([^;]{1,});?", attrs):
+                temp_attrs[key] = val
+            if not "," in tags:
+                for types in tags.split(" "):
+                    css_tree.append(CssDeclaration(types, temp_attrs))
+            else:
+                for types in tags.split(","):
+                    css_tree.append(CssDeclaration(types, temp_attrs))
+            temp_attrs.clear()
         return css_tree
 
     async def handle_js(self, url):
@@ -56,13 +62,17 @@ class Parser(HTMLParser):
         super().__init__()
         self.parent_tag = []
         self.tree = None
-        self.css_urls=[]
-        self.js_urls=[]
+        self.css_urls = []
+        self.js_urls = []
 
     def handle_starttag(self, tag, attrs):
         # print("Start tag:", tag)
         new_tag = Tag(tag, attrs)
-        if tag=="link" and new_tag.parameters.get("rel")=="stylesheet" and new_tag.parameters.get("href"):
+        if (
+            tag == "link"
+            and new_tag.parameters.get("rel") == "stylesheet"
+            and new_tag.parameters.get("href")
+        ):
             self.css_urls.append(new_tag.parameters.get("href"))
 
         if self.parent_tag:
