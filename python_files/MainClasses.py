@@ -4,13 +4,21 @@ from MinorClasses import *
 import aiohttp
 import asyncio
 import re
+import os
+import hashlib
+import requests as r
 
 
-class Browser:
+class Browser(HTMLParser):
     def __init__(self):
         self.session = aiohttp.ClientSession()
         self.loop = asyncio.get_event_loop()
         self.current_url = None
+        self.css_list = []
+        self.js_files = []
+        super().__init__()
+        self.parent_tag = []
+        self.tree = None
 
     def dead(self):
         self.loop.run_until_complete(self.session.close())
@@ -18,8 +26,11 @@ class Browser:
     def get_request(self, url, parsing=False):
         return self.loop.run_until_complete(self._make_request(url, parsing))
 
-    def handle_css(self, url):
-        return self.loop.run_until_complete(self._handle_css(url))
+    def handle_css(self, parsed):
+        return self.loop.run_until_complete(self._handle_css(parsed))
+
+    def handle_js(self, parsed):
+        return self.loop.run_until_complete(self._handle_js(parsed))
 
     async def _make_request(self, url, parsing):
         if url.startswith("/") and parsing:
@@ -32,9 +43,14 @@ class Browser:
             ).group(0)
         resp = await self.session.get(url)
         print(resp.status)
-        return await resp.text()
+        try:
+            return await resp.text()
+        except Exception as e:
+            print("\nREQUEST FAILED {}\n".format(url))
 
-    async def _post_request(self, url, args*):
+            return r.get(url).text  # hmm, what's the problem
+
+    async def _post_request(self, url):
         pass
 
     async def _handle_css(self, parsed):
@@ -46,24 +62,34 @@ class Browser:
                 temp_attrs[key] = val
             if not "," in tags:
                 for types in tags.split(" "):
-                    css_tree.append(CssDeclaration(types, temp_attrs))
+                    if types:
+                        css_tree.append(CssDeclaration(types, temp_attrs))
             else:
                 for types in tags.split(","):
-                    css_tree.append(CssDeclaration(types, temp_attrs))
+                    if types:
+                        css_tree.append(CssDeclaration(types, temp_attrs))
             temp_attrs.clear()
         return css_tree
 
-    async def handle_js(self, url):
-        pass
+    async def _handle_js(self, js_text):
+        if not os.path.exists("temp_js"):
+            os.mkdir("temp_js")
+        hash_js = hashlib.sha1(js_text.encode()).hexdigest()
+        file = open("temp_js/" + hash_js + ".js", "w")
+        file.write(js_text)
+        file.close()
+        self.js_files.append(hash_js)
 
+        """PARSER"""
 
-class Parser(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.parent_tag = []
+    def feed_restore(self, response):
+        self.feed(response)
+        self.restore()
         self.tree = None
-        self.css_urls = []
-        self.js_urls = []
+
+    def restore(self):
+        self.css_list = []
+        self.js_files = []
 
     def handle_starttag(self, tag, attrs):
         # print("Start tag:", tag)
@@ -73,7 +99,12 @@ class Parser(HTMLParser):
             and new_tag.parameters.get("rel") == "stylesheet"
             and new_tag.parameters.get("href")
         ):
-            self.css_urls.append(new_tag.parameters.get("href"))
+            self.css_list += self.handle_css(
+                self.get_request(new_tag.parameters.get("href"), True)
+            )
+
+        if tag == "script" and new_tag.parameters.get("src"):
+            self._handle_js(self.get_request(new_tag.parameters.get("src"), True))
 
         if self.parent_tag:
             self.parent_tag[-1].add_children(new_tag)
@@ -87,8 +118,14 @@ class Parser(HTMLParser):
             self.tree = tag
 
     def handle_data(self, data):
+
         if self.parent_tag:
-            self.parent_tag[-1].data = data
+            if self.parent_tag[-1].tag_type == "script":
+                self.handle_js(data)
+            elif self.parent_tag[-1].tag_type == "style":
+                self.css_list += self.handle_css(data)
+            else:
+                self.parent_tag[-1].data = data
         # print("Data     :", data)
 
     def handle_comment(self, data):
@@ -109,8 +146,27 @@ class Parser(HTMLParser):
         print("Decl     :", data)
 
 
-"""
-class User:
+class Storage:
     def __init__(self):
+        self.js_files = []
+        self.css_dictionary = []
+        self.html_tree = None
+
+    def add_js_files(self, js_files):
+        self.js_files += js_files
+
+    def add_css(self, css_list):
+        self.css_dictionary += css_list
+
+    def add_html(self, tree):
+        self.html_tree = tree
+
+    def compare_css_html(self):
         pass
-"""
+
+    def restore(self):  # delete all files
+        for file in self.js_files:
+            os.remove("temp_js/" + file + ".js")
+        self.js_files = []
+        self.css_dictionary = []
+        self.html_tree = None
