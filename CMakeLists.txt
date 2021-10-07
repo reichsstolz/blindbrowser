@@ -17,7 +17,7 @@ HunterGate(
 
 project(BlindBrowser)
 
-hunter_add_package(Qt COMPONENTS Core Widgets REQUIRED)
+hunter_add_package(Qt)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 

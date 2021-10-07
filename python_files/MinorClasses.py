@@ -1,5 +1,14 @@
-import asyncio
 import re, sys
+import threading
+
+class Request(threading.Thread):
+        def __init__(self, make_request, handle_request, url):
+            self.make_request=make_request
+            self.handle_request=handle_request
+            self.url=url
+            super().__init__()
+        def run (self):
+            self.handle_request(self.make_request(self.url, True))
 
 
 class CssDeclaration:
@@ -25,7 +34,7 @@ class CssDeclaration:
                 self.tag = None
         except Exception as e:
             print(e)
-            print("\n\n A OCCASION\n\n")
+            print("\n\n AN OCCASION\n\n")
             print(type, attr)
             sys.exit()
         # add attr delete

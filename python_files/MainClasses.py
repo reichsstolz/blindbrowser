@@ -1,18 +1,12 @@
 from html.entities import name2codepoint
 from html.parser import HTMLParser
 from MinorClasses import *
-import aiohttp
-import asyncio
-import re
-import os
-import hashlib
+import aiohttp, re, os, hashlib
 import requests as r
 
 
 class Browser(HTMLParser):
     def __init__(self):
-        self.session = aiohttp.ClientSession()
-        self.loop = asyncio.get_event_loop()
         self.current_url = None
         self.css_list = []
         self.js_files = []
@@ -20,40 +14,30 @@ class Browser(HTMLParser):
         self.parent_tag = []
         self.tree = None
 
-    def dead(self):
-        self.loop.run_until_complete(self.session.close())
-
-    def get_request(self, url, parsing=False):
-        return self.loop.run_until_complete(self._make_request(url, parsing))
-
-    def handle_css(self, parsed):
-        return self.loop.run_until_complete(self._handle_css(parsed))
-
-    def handle_js(self, parsed):
-        return self.loop.run_until_complete(self._handle_js(parsed))
-
-    async def _make_request(self, url, parsing):
+    def _make_request(self, url, parsing=False):
         if url.startswith("/") and parsing:
             url = self.current_url + url
         elif not url.startswith("http") and parsing:
             url = self.current_url + "/" + url
         elif not parsing:
             self.current_url = re.search(
-                r"https:\/\/[a-zA-Z0-9.-]{1,}|http:\/\/[a-zA-Z0-9.-]{1,}", url
-            ).group(0)
-        resp = await self.session.get(url)
-        print(resp.status)
+                r"https:\/\/[a-zA-Z0-9.-]{1,}|http:\/\/[a-zA-Z0-9.-]{1,}", url).group(0)
+
         try:
-            return await resp.text()
+            resp = r.get(url)
+            text = resp.text
         except Exception as e:
             print("\nREQUEST FAILED {}\n".format(url))
+            text = r.get(url).text
 
-            return r.get(url).text  # hmm, what's the problem
+        finally:
+            print(len (text))
+            return  text
 
-    async def _post_request(self, url):
+    def _post_request(self, url):
         pass
 
-    async def _handle_css(self, parsed):
+    def _handle_css(self, parsed):
         parsed = re.findall(r"([a-zA-Z\.#,_\-:]{1,})\s*\{([^}]{1,})\}", parsed)
         css_tree = []
         temp_attrs = {}
@@ -69,9 +53,9 @@ class Browser(HTMLParser):
                     if types:
                         css_tree.append(CssDeclaration(types, temp_attrs))
             temp_attrs.clear()
-        return css_tree
+        self.css_list+=css_tree
 
-    async def _handle_js(self, js_text):
+    def _handle_js(self, js_text):
         if not os.path.exists("temp_js"):
             os.mkdir("temp_js")
         hash_js = hashlib.sha1(js_text.encode()).hexdigest()
@@ -82,29 +66,25 @@ class Browser(HTMLParser):
 
         """PARSER"""
 
-    def feed_restore(self, response):
-        self.feed(response)
-        self.restore()
-        self.tree = None
 
     def restore(self):
         self.css_list = []
         self.js_files = []
+        self.tree = None
 
     def handle_starttag(self, tag, attrs):
         # print("Start tag:", tag)
         new_tag = Tag(tag, attrs)
-        if (
-            tag == "link"
+        if (tag == "link"
             and new_tag.parameters.get("rel") == "stylesheet"
-            and new_tag.parameters.get("href")
-        ):
-            self.css_list += self.handle_css(
-                self.get_request(new_tag.parameters.get("href"), True)
-            )
+            and new_tag.parameters.get("href")):
+                newreq=Request(self._make_request, self._handle_css, new_tag.parameters.get("href"))
+                newreq.start()
 
         if tag == "script" and new_tag.parameters.get("src"):
-            self._handle_js(self.get_request(new_tag.parameters.get("src"), True))
+            newreq=Request(self._make_request, self._handle_js, new_tag.parameters.get("src"))
+            newreq.start()
+            #self.handle_js(self.get_request(new_tag.parameters.get("src"), True))
 
         if self.parent_tag:
             self.parent_tag[-1].add_children(new_tag)
@@ -121,9 +101,9 @@ class Browser(HTMLParser):
 
         if self.parent_tag:
             if self.parent_tag[-1].tag_type == "script":
-                self.handle_js(data)
+                self._handle_js(data)
             elif self.parent_tag[-1].tag_type == "style":
-                self.css_list += self.handle_css(data)
+                self._handle_css(data)
             else:
                 self.parent_tag[-1].data = data
         # print("Data     :", data)

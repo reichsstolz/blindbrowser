@@ -1,3 +1,5 @@
 python_files/test.py
 __pycache__
 python_files/temp_js
+.idea
+cmake-build-debug
