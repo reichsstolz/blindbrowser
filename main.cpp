@@ -1,7 +1,11 @@
 //
 // Created by reichsstolz on 02.10.2021.
 //
-int main(){
+#include <Window.hpp>
 
-    return 0;
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+    Window MainWindow;
+    MainWindow.show();
+    return QApplication::exec();
 }
