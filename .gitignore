@@ -1,8 +1,5 @@
 python_files/test.py
 __pycache__
-<<<<<<< HEAD
-=======
 python_files/temp_js
 .idea
->>>>>>> 51af11c16b6ea132a0c21daedb50a42dc585798f
 cmake-build-debug
