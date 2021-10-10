@@ -16,7 +16,7 @@ HunterGate(
 
 project(BlindBrowser)
 
-#hunter_add_package(Qt COMPONENTS qtbase)
+hunter_add_package(Qt)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Test REQUIRED)
@@ -35,8 +35,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "$<INSTALL_INTERFACE:headers>"
         )
 
-#target_include_directories(demo PUBLIC ./headers)
-#target_link_libraries(demo Qt5::Core Qt5::Widgets)
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets)
 target_link_libraries(demo ${PROJECT_NAME})
 
