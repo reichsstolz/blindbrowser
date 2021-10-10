@@ -12,8 +12,9 @@
 
 
 class Keyboard: public QWidget  {
+private:
 public:
-    // следует добавить несколько 6 кнопок как на картинке
+    explicit Keyboard(QWidget *parent = 0);
 };
 
 

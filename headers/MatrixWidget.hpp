@@ -13,10 +13,12 @@
 // https://ravesli.com/urok-12-risovanie-v-qt5/
 // https://ravesli.com/urok-13-sozdanie-polzovatelskogo-vidzheta-v-qt5/
 
-class MatrixWidget : QFrame {
-    QOBJECT
+class MatrixWidget : public QFrame {
+private:
+    //QOBJECT
 public:
-    void initUI();
+    explicit MatrixWidget(QWidget *parent = nullptr);
+
 };
 
 
