@@ -18,8 +18,14 @@ HunterGate(
 project(BlindBrowser)
 
 hunter_add_package(Qt)
+
+
 find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+
+find_package(Qt5Test REQUIRED)
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5DBus REQUIRED)
 
 add_library(sources STATIC
         ./src/MatrixWidget.cpp
@@ -27,9 +33,8 @@ add_library(sources STATIC
         ./src/Window.cpp
         )
 add_executable(main main.cpp)
+include_directories(main ./headers)
 
-target_include_directories(./headers)
 
+target_link_libraries(sources Qt5::Core Qt5::Widgets )
 
-target_link_libraries(sources Qt5::Core Qt5::Widgets)
-target_link_libraries(main Qt5::Core Qt5::Widgets)
