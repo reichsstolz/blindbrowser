@@ -17,6 +17,8 @@ HunterGate(
 project(BlindBrowser)
 
 hunter_add_package(Qt)
+
+
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Test REQUIRED)
@@ -28,6 +30,7 @@ add_library(${PROJECT_NAME} STATIC
         ./src/Keyboard.cpp
         ./src/Window.cpp
         )
+
 add_executable(demo main.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -38,4 +41,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets)
 target_link_libraries(demo ${PROJECT_NAME})
 
+target_link_libraries(sources Qt5::Core Qt5::Widgets )
 
