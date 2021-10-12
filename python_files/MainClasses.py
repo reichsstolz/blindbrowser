@@ -1,7 +1,7 @@
 from html.entities import name2codepoint
 from html.parser import HTMLParser
 from MinorClasses import *
-import aiohttp, re, os, hashlib
+import re, os, hashlib
 import requests as r
 
 
@@ -150,3 +150,7 @@ class Storage:
         self.js_files = []
         self.css_dictionary = []
         self.html_tree = None
+
+
+
+browser = Browser()
