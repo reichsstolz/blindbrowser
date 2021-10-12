@@ -6,4 +6,3 @@
  qt
 [options]
 *:shared=True
-Qt::qtwidgets=True
