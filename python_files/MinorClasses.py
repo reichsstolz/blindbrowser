@@ -38,7 +38,6 @@ class CssDeclaration:
             print(type, attr)
             sys.exit()
         # add attr delete
-
     def get_relation():
         return (self.tag, self._class, self.id)
 

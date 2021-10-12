@@ -1,45 +1,45 @@
-cmake_minimum_required(VERSION 3.2)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+cmake_minimum_required(VERSION 3.3)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include("cmake/HunterGate.cmake")
 
-HunterGate(
-        URL "https://github.com/cpp-pm/hunter/archive/v0.23.297.tar.gz"
-        SHA1 "3319fe6a3b08090df7df98dee75134d68e2ef5a3"
-)
+set(CONAN_DISABLE_CHECK_COMPILER ON)
+include(build/conanbuildinfo.cmake)
+
+
+include_directories(${CONAN_INCLUDE_DIRS})
 
 project(BlindBrowser)
 
-hunter_add_package(Qt)
+conan_basic_setup()
 
 
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5Test REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5DBus REQUIRED)
+#find_package(Qt5  COMPONENTS Widgets Core)
+
+#find_package(Boost COMPONENTS python)
 
 add_library(${PROJECT_NAME} STATIC
         ./src/MatrixWidget.cpp
         ./src/Keyboard.cpp
         ./src/Window.cpp
+        ./python_files/PyFunctions.cpp
         )
 
 add_executable(demo main.cpp)
+
+
+
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/headers>"
         "$<INSTALL_INTERFACE:headers>"
         )
+target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS})
 
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets)
-target_link_libraries(demo ${PROJECT_NAME})
 
-target_link_libraries(sources Qt5::Core Qt5::Widgets )
 
