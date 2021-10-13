@@ -1,6 +1,6 @@
 # blindbrowser
 
-## Назначение 
+## Назначение
  Демонстрация работы браузера на телефонах, использующих шрифт Брайля.
 
 ## TODO
@@ -14,3 +14,13 @@
 
 ## Prototype
 ![](pics/blindbrowser.png)
+
+## Build project
+
+``` Bashs
+cd build`
+conan install . && cd ..
+cmake build .
+cmake --build .
+```
+
