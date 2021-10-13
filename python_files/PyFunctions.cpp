@@ -3,18 +3,33 @@
 //
 
 #include "PyFunctions.hpp"
-#include <iostream>
+
 
 string return_req(string url){
+    string sum;
 
+    setenv("PYTHONPATH", ".", 1);
+    namespace python = boost::python;
+    // Initialize Python.
+    Py_Initialize();
+
+    try
+    {
+        // >>> import MyPythonClass
+        python::object my_python_class_module = python::import("MainClasses");
+
+        // >>> dog = MyPythonClass.Dog()
+        python::object dog = my_python_class_module.attr("Browser")();
+
+        // >>> dog.bark("woof");
+        dog.attr("_make_request")(url);
+    }
+    catch (const python::error_already_set&)
+    {
+        PyErr_Print();
+    }
+
+    return sum;
 }
 
 
-/*int m(){
-    py::scoped_interpreter guard{};
-    py::module browser = py::module::import("MainClasses");
-    py::object req = browser.attr("browser._make_request")("https://github.com");
-    string req1=req.cast<string>();
-    std::cout<<req1;
-    return 0;
-}*/

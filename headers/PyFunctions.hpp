@@ -5,22 +5,23 @@
 #ifndef BLINDBROWSER_PYFUNCTIONS_H
 #define BLINDBROWSER_PYFUNCTIONS_H
 
-//#include <pybind11/embed.h>
-//#include <pybind11/pybind11.h>
-//#include <pybind11/stl_bind.h>
+
 #include <string>
 #include <utility>
 #include <vector>
 #include <map>
 #include <memory>
-//#include <Python.h>
+#include <iostream>
 
+#pragma push_macro("slots")
+#undef slots
+#include <boost/python.hpp>
+#pragma pop_macro("slots")
 
-
-//namespace py = pybind11;
-//using namespace py::literals;
 using std::string;
 using std::vector;
+using namespace boost::python;
+
 class Tag{
 public:
     string tag_type;
@@ -30,9 +31,9 @@ public:
     Tag(string  tag_type_, string  data_, vector<std::unique_ptr<Tag>> children_, std::map<string, string> attrs_ ): tag_type(std::move(tag_type_)), data(std::move(data_)), children(std::move(children_)), attrs(std::move(attrs_)){}
 };
 
-//string return_req(string url);
+string return_req(string url);
 
-//int m();
+
 
 
 
