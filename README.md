@@ -20,7 +20,7 @@
 ``` Bashs
 cd build`
 conan install . && cd ..
-cmake build .
-cmake --build .
+cmake . -B build_bb
+cmake --build build_bb
 ```
 

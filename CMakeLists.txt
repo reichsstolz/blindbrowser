@@ -19,27 +19,28 @@ project(BlindBrowser)
 conan_basic_setup()
 
 
-#find_package(Qt5  COMPONENTS Widgets Core)
+find_package(PythonLibs REQUIRED)
+set(CMAKE_SHARED_MODULE_PREFIX "")
 
 #find_package(Boost COMPONENTS python)
 
 add_library(${PROJECT_NAME} STATIC
-        ./src/MatrixWidget.cpp
-        ./src/Keyboard.cpp
-        ./src/Window.cpp
+        #./src/MatrixWidget.cpp
+        #./src/Keyboard.cpp
+        #./src/Window.cpp
         ./python_files/PyFunctions.cpp
         )
 
 add_executable(demo main.cpp)
 
-
+include_directories(${PYTHON_INCLUDE_DIRS})
 
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/headers>"
         "$<INSTALL_INTERFACE:headers>"
         )
-target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS})
+target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS} ${PYTHON_LIBRARIES})
 
 
 
