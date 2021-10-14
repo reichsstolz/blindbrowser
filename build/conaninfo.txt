@@ -2,8 +2,8 @@
     arch=x86_64
     build_type=Release
     compiler=gcc
-    compiler.libcxx=libstdc++11
-    compiler.version=10.2
+    compiler.libcxx=libstdc++
+    compiler.version=10
     os=Linux
 
 [requires]
@@ -18,44 +18,44 @@
     arch_build=x86_64
     build_type=Release
     compiler=gcc
-    compiler.libcxx=libstdc++11
-    compiler.version=9
+    compiler.libcxx=libstdc++
+    compiler.version=10
     os=Linux
     os_build=Linux
 
 [full_requires]
-    boost/1.77.0:15e881cf4fa352877c6f626d88a3b9471860ac90
-    brotli/1.0.9:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    bzip2/1.0.8:e7a36181961a6832da05ed7b82285249bbebb55a
-    double-conversion/3.1.5:97172bab7554b947975f35cab343b2a755de9955
-    expat/2.4.1:6c8b487d86f8f8612c1e26346a83073582ae4343
-    fontconfig/2.13.93:af824f9457ab5da59de23134589d6e559eb8feae
-    freetype/2.10.4:da3c7dec871583575824ffa1cfb502c8e79aabfc
-    glib/2.70.0:09296e6953808ca1821009002df68628692257b1
-    harfbuzz/2.8.0:9cd7face95b6f284329263b40360d2b2b8d1d8c9
-    icu/69.1:59ccc98577efe80a2349729684fa8d45c67d7276
-    libbacktrace/cci.20210118:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    libelf/0.8.13:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    libffi/3.4.2:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    libiconv/1.16:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    libmount/2.36.2:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    libpng/1.6.37:b8558f1eab1cd27c5e774e767cae654fe132a8d6
-    libpq/13.2:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    libselinux/3.2:97c660b10bd828cd39430243fc8b3dfb207acd4f
-    libuuid/1.0.3:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    libxml2/2.9.12:988c12d94ac6fc710966303867aa6edf51330969
-    odbc/2.3.9:ce9f3d603f1b4ca69980c4a73b41a7f9eb968076
+    boost/1.77.0:634391908be52704fdd5c332658475fe91ab3b1d
+    brotli/1.0.9:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    bzip2/1.0.8:73baa4ecfbbb27db046fd0e46c3fa0593bf48276
+    double-conversion/3.1.5:7788bf09de359a829e85159c89ae9d40002b69bd
+    expat/2.4.1:ac73e291be9cd2fec6b6bb3d67cee35a19e544bd
+    fontconfig/2.13.93:e80653e77bb0eb72711b5ef7078d798a9aa2a478
+    freetype/2.10.4:9dd33a138da6eda1be8082ab0de24d3440946483
+    glib/2.70.0:efc70992e88403284ce56182a75103775ad06f40
+    harfbuzz/2.8.0:5f9b942e426a9388f403b9bf2567ee8cd425c898
+    icu/69.1:224168a8c194ac09a31ada6a54e842175b525555
+    libbacktrace/cci.20210118:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    libelf/0.8.13:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    libffi/3.4.2:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    libiconv/1.16:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    libmount/2.36.2:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    libpng/1.6.37:0b6fff802e2a71578ee6ef5aef39f3a52825601e
+    libpq/13.2:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    libselinux/3.2:c7793c317ceabef0b9880b80676e557dd0ea95e9
+    libuuid/1.0.3:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    libxml2/2.9.12:6626870fcec0a70d868a991b7d2ba474542766ea
+    odbc/2.3.9:c91361facb8981b404f809fac9b6ef7df1aaac69
     opengl/system:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
-    openssl/1.1.1k:2af715f34a7c8c2aeae57b25be0a52c4110dc502
-    pcre/8.45:612ac8ce548ecfb2e646c9469a30e7cf5b2d630d
-    pcre2/10.37:5860270a0a4dc6b65dfe31a64ac97cab5b398329
-    qt/6.1.3:89bd71da113402bac2ceecdfb2b632fe72f0cef8
-    sqlite3/3.36.0:364187a3807a1e4b0b3495950e0b68ca5ed32e69
-    wayland/1.19.0:bdb882f00239ae2c334cf140eaa84e025f8452bd
+    openssl/1.1.1k:d0c219631d7c692d7a95436cf4e11fe2891dc312
+    pcre/8.45:cbc5e481b64dd15f270aca7bf42e20a8567ad2d5
+    pcre2/10.37:cf1d79a941bfc3ba11f339bb00a2e70f27da2fd5
+    qt/6.1.3:984da072effc3c9472762d9029db797ea19c107f
+    sqlite3/3.36.0:ba2e84093901104b5385fb97352db3582a4025bc
+    wayland/1.19.0:181119e8ee98b6c224a32fa7ccea385c9544299e
     wayland-protocols/1.21:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
-    xkbcommon/1.3.0:11dd5edb0c2e88bb2089dd9672737ede12e74cef
+    xkbcommon/1.3.0:772994b670d566b7b438a2ed4df6238699bf37d3
     xorg/system:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
-    zlib/1.2.11:2af715f34a7c8c2aeae57b25be0a52c4110dc502
+    zlib/1.2.11:d0c219631d7c692d7a95436cf4e11fe2891dc312
 
 [full_options]
     boost:addr2line_location=/usr/bin/addr2line
