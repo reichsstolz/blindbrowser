@@ -6,12 +6,12 @@
 #include "Keyboard.hpp"
 
 Keyboard::Keyboard(QWidget *parent) : QWidget((parent)) {
-    QPushButton *left_button = new QPushButton("<-", this);
-    QPushButton *right_button = new QPushButton("->", this);
-    QPushButton *up_button = new QPushButton("up", this);
-    QPushButton *bot_button = new QPushButton("down", this);
-    QPushButton *left_point_button = new QPushButton(".", this);
-    QPushButton *right_point_button = new QPushButton(".", this);
+    auto *left_button = new QPushButton("<-", this);
+    auto *right_button = new QPushButton("->", this);
+    auto *up_button = new QPushButton("up", this);
+    auto *bot_button = new QPushButton("down", this);
+    auto *left_point_button = new QPushButton(".", this);
+    auto *right_point_button = new QPushButton(".", this);
 
     left_button->setMinimumSize(200, 50);
     right_button->setMinimumSize(200, 50);

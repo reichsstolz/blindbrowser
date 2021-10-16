@@ -2,9 +2,12 @@
 // Created by reichsstolz on 02.10.2021.
 //
 
-#include "MatrixWidget.hpp"
+
 #include <QGridLayout>
 #include <QLabel>
+#include "MatrixWidget.hpp"
+//#include "MatrixWidget.moc"
+#include "moc_MatrixWidget.cpp"
 
 MatrixWidget::MatrixWidget(QWidget *parent): QFrame(parent) {
     setFrameStyle(QFrame::Box);

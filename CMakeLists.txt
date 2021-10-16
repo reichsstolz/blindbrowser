@@ -28,7 +28,7 @@ add_library(${PROJECT_NAME} STATIC
         ./src/Keyboard.cpp
         ./src/Window.cpp
         ./python_files/PyFunctions.cpp
-        src/AddressBar.cpp)
+        ./src/AddressBar.cpp)
 
 add_executable(demo main.cpp)
 
@@ -39,7 +39,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/headers>"
         "$<INSTALL_INTERFACE:headers>"
         )
-target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS})
 
+target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS})
 
 

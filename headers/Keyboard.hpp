@@ -16,7 +16,7 @@ class Keyboard : public QWidget {
 private:
 
 public:
-    explicit Keyboard(QWidget *parent = 0);
+    explicit Keyboard(QWidget *parent = nullptr);
 
     ~Keyboard() override = default;
 };

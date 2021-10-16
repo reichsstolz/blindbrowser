@@ -57,16 +57,20 @@ SOURCES       = main.cpp \
 		src/AddressBar.cpp \
 		src/Keyboard.cpp \
 		src/MatrixWidget.cpp \
-		src/Window.cpp moc_AddressBar.cpp \
-		moc_MatrixWidget.cpp
+		src/Window.cpp \
+		cmake-build-debug/BlindBrowser_autogen/mocs_compilation.cpp \
+		cmake-build-debug/CMakeFiles/3.20.2/CompilerIdC/CMakeCCompilerId.c \
+		cmake-build-debug/CMakeFiles/3.20.2/CompilerIdCXX/CMakeCXXCompilerId.cpp moc_AddressBar.cpp
 OBJECTS       = main.o \
 		PyFunctions.o \
 		AddressBar.o \
 		Keyboard.o \
 		MatrixWidget.o \
 		Window.o \
-		moc_AddressBar.o \
-		moc_MatrixWidget.o
+		mocs_compilation.o \
+		CMakeCCompilerId.o \
+		CMakeCXXCompilerId.o \
+		moc_AddressBar.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -143,7 +147,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		blindbrowser.pro headers/AddressBar.h \
+		blindbrowser.pro headers/AddressBar.hpp \
 		headers/Keyboard.hpp \
 		headers/MatrixWidget.hpp \
 		headers/PyFunctions.hpp \
@@ -152,7 +156,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/AddressBar.cpp \
 		src/Keyboard.cpp \
 		src/MatrixWidget.cpp \
-		src/Window.cpp
+		src/Window.cpp \
+		cmake-build-debug/BlindBrowser_autogen/mocs_compilation.cpp \
+		cmake-build-debug/CMakeFiles/3.20.2/CompilerIdC/CMakeCCompilerId.c \
+		cmake-build-debug/CMakeFiles/3.20.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
 QMAKE_TARGET  = blindbrowser
 DESTDIR       = 
 TARGET        = blindbrowser
@@ -334,8 +341,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents headers/AddressBar.h headers/Keyboard.hpp headers/MatrixWidget.hpp headers/PyFunctions.hpp headers/Window.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp python_files/PyFunctions.cpp src/AddressBar.cpp src/Keyboard.cpp src/MatrixWidget.cpp src/Window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents headers/AddressBar.hpp headers/Keyboard.hpp headers/MatrixWidget.hpp headers/PyFunctions.hpp headers/Window.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp python_files/PyFunctions.cpp src/AddressBar.cpp src/Keyboard.cpp src/MatrixWidget.cpp src/Window.cpp cmake-build-debug/BlindBrowser_autogen/mocs_compilation.cpp cmake-build-debug/CMakeFiles/3.20.2/CompilerIdC/CMakeCCompilerId.c cmake-build-debug/CMakeFiles/3.20.2/CompilerIdCXX/CMakeCXXCompilerId.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents cmake-build-debug/CMakeFiles/BlindBrowser_autogen.dir/compiler_depend.ts cmake-build-debug/CMakeFiles/demo_autogen.dir/compiler_depend.ts $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -370,10 +378,10 @@ moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: moc_AddressBar.cpp moc_MatrixWidget.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_AddressBar.cpp moc_MatrixWidget.cpp
-moc_AddressBar.cpp: headers/AddressBar.h \
+moc_AddressBar.cpp: headers/AddressBar.hpp \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/arty/labs/blindbrowser/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/arty/labs/blindbrowser -I/home/arty/labs/blindbrowser -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/AddressBar.h -o moc_AddressBar.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/arty/labs/blindbrowser/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/arty/labs/blindbrowser -I/home/arty/labs/blindbrowser -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/AddressBar.hpp -o moc_AddressBar.cpp
 
 moc_MatrixWidget.cpp: headers/MatrixWidget.hpp \
 		moc_predefs.h \
@@ -400,23 +408,29 @@ main.o: main.cpp
 PyFunctions.o: python_files/PyFunctions.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PyFunctions.o python_files/PyFunctions.cpp
 
-AddressBar.o: src/AddressBar.cpp 
+AddressBar.o: src/AddressBar.cpp AddressBar.moc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AddressBar.o src/AddressBar.cpp
 
 Keyboard.o: src/Keyboard.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Keyboard.o src/Keyboard.cpp
 
-MatrixWidget.o: src/MatrixWidget.cpp 
+MatrixWidget.o: src/MatrixWidget.cpp MatrixWidget.moc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MatrixWidget.o src/MatrixWidget.cpp
 
 Window.o: src/Window.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Window.o src/Window.cpp
 
+mocs_compilation.o: cmake-build-debug/BlindBrowser_autogen/mocs_compilation.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mocs_compilation.o cmake-build-debug/BlindBrowser_autogen/mocs_compilation.cpp
+
+CMakeCCompilerId.o: cmake-build-debug/CMakeFiles/3.20.2/CompilerIdC/CMakeCCompilerId.c 
+	$(CC) -c $(CFLAGS) $(INCPATH) -o CMakeCCompilerId.o cmake-build-debug/CMakeFiles/3.20.2/CompilerIdC/CMakeCCompilerId.c
+
+CMakeCXXCompilerId.o: cmake-build-debug/CMakeFiles/3.20.2/CompilerIdCXX/CMakeCXXCompilerId.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CMakeCXXCompilerId.o cmake-build-debug/CMakeFiles/3.20.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+
 moc_AddressBar.o: moc_AddressBar.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_AddressBar.o moc_AddressBar.cpp
-
-moc_MatrixWidget.o: moc_MatrixWidget.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MatrixWidget.o moc_MatrixWidget.cpp
 
 ####### Install
 

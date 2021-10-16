@@ -17,11 +17,11 @@
 // файл главного окна
 #include "Keyboard.hpp"
 #include "MatrixWidget.hpp"
-#include "AddressBar.h"
+#include "AddressBar.hpp"
 
 class Window : public QWidget {
 private:
-    AddressBar *adress_bar; //указатель на виджет адресной строку
+    AddressBar *address_bar; //указатель на виджет адресной строку
     Keyboard *keyboard_box; //указатель на виджет клавиатуры
     MatrixWidget *matrix_box; //указатель на дисплей
 
