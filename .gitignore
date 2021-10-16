@@ -4,3 +4,16 @@ python_files/temp_js
 .idea
 cmake-build-debug
 test
+build/BlindBrowser_autogen
+build/lib
+build/Makefile
+build/CMakeFiles
+build/cmake_install.cmake
+build/bin
+build/CMakeCache.txt
+build/conan.lock
+build/conanbuildinfo.cmake
+build/conanbuildinfo.txt
+build/conaninfo.txt
+build/qt.conf
+build/graph_info.json

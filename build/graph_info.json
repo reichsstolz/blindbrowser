@@ -293,42 +293,6 @@
    "True"
   ],
   [
-   "glib:shared",
-   "True"
-  ],
-  [
-   "glib:with_elf",
-   "True"
-  ],
-  [
-   "glib:with_mount",
-   "True"
-  ],
-  [
-   "glib:with_pcre",
-   "True"
-  ],
-  [
-   "glib:with_selinux",
-   "True"
-  ],
-  [
-   "harfbuzz:shared",
-   "True"
-  ],
-  [
-   "harfbuzz:with_freetype",
-   "True"
-  ],
-  [
-   "harfbuzz:with_glib",
-   "True"
-  ],
-  [
-   "harfbuzz:with_icu",
-   "False"
-  ],
-  [
    "icu:data_packaging",
    "archive"
   ],
@@ -353,10 +317,6 @@
    "True"
   ],
   [
-   "libelf:shared",
-   "True"
-  ],
-  [
    "libffi:shared",
    "True"
   ],
@@ -365,7 +325,19 @@
    "True"
   ],
   [
-   "libmount:shared",
+   "libjpeg:shared",
+   "True"
+  ],
+  [
+   "libmysqlclient:shared",
+   "True"
+  ],
+  [
+   "libmysqlclient:with_ssl",
+   "True"
+  ],
+  [
+   "libmysqlclient:with_zlib",
    "True"
   ],
   [
@@ -391,10 +363,6 @@
   [
    "libpq:with_openssl",
    "False"
-  ],
-  [
-   "libselinux:shared",
-   "True"
   ],
   [
    "libuuid:shared",
@@ -526,6 +494,10 @@
   ],
   [
    "libxml2:zlib",
+   "True"
+  ],
+  [
+   "lz4:shared",
    "True"
   ],
   [
@@ -757,54 +729,6 @@
    "True"
   ],
   [
-   "pcre:build_pcre_16",
-   "True"
-  ],
-  [
-   "pcre:build_pcre_32",
-   "True"
-  ],
-  [
-   "pcre:build_pcre_8",
-   "True"
-  ],
-  [
-   "pcre:build_pcrecpp",
-   "False"
-  ],
-  [
-   "pcre:build_pcregrep",
-   "True"
-  ],
-  [
-   "pcre:shared",
-   "True"
-  ],
-  [
-   "pcre:with_bzip2",
-   "True"
-  ],
-  [
-   "pcre:with_jit",
-   "False"
-  ],
-  [
-   "pcre:with_stack_for_recursion",
-   "True"
-  ],
-  [
-   "pcre:with_unicode_properties",
-   "True"
-  ],
-  [
-   "pcre:with_utf",
-   "True"
-  ],
-  [
-   "pcre:with_zlib",
-   "True"
-  ],
-  [
    "pcre2:build_pcre2_16",
    "True"
   ],
@@ -837,6 +761,14 @@
    "True"
   ],
   [
+   "qt:commercial",
+   "False"
+  ],
+  [
+   "qt:config",
+   "None"
+  ],
+  [
    "qt:cross_compile",
    "None"
   ],
@@ -865,11 +797,11 @@
    "False"
   ],
   [
-   "qt:qt5compat",
+   "qt:qtactiveqt",
    "False"
   ],
   [
-   "qt:qtactiveqt",
+   "qt:qtandroidextras",
    "False"
   ],
   [
@@ -877,7 +809,7 @@
    "False"
   ],
   [
-   "qt:qtcoap",
+   "qt:qtconnectivity",
    "False"
   ],
   [
@@ -893,7 +825,19 @@
    "False"
   ],
   [
+   "qt:qtgamepad",
+   "False"
+  ],
+  [
+   "qt:qtgraphicaleffects",
+   "False"
+  ],
+  [
    "qt:qtimageformats",
+   "False"
+  ],
+  [
+   "qt:qtlocation",
    "False"
   ],
   [
@@ -901,7 +845,11 @@
    "False"
   ],
   [
-   "qt:qtmqtt",
+   "qt:qtmacextras",
+   "False"
+  ],
+  [
+   "qt:qtmultimedia",
    "False"
   ],
   [
@@ -909,11 +857,15 @@
    "False"
   ],
   [
-   "qt:qtopcua",
+   "qt:qtpurchasing",
    "False"
   ],
   [
    "qt:qtquick3d",
+   "False"
+  ],
+  [
+   "qt:qtquickcontrols",
    "False"
   ],
   [
@@ -925,11 +877,31 @@
    "False"
   ],
   [
+   "qt:qtremoteobjects",
+   "False"
+  ],
+  [
+   "qt:qtscript",
+   "False"
+  ],
+  [
    "qt:qtscxml",
    "False"
   ],
   [
-   "qt:qtshadertools",
+   "qt:qtsensors",
+   "False"
+  ],
+  [
+   "qt:qtserialbus",
+   "False"
+  ],
+  [
+   "qt:qtserialport",
+   "False"
+  ],
+  [
+   "qt:qtspeech",
    "False"
   ],
   [
@@ -953,6 +925,38 @@
    "False"
   ],
   [
+   "qt:qtwebchannel",
+   "False"
+  ],
+  [
+   "qt:qtwebengine",
+   "False"
+  ],
+  [
+   "qt:qtwebglplugin",
+   "False"
+  ],
+  [
+   "qt:qtwebsockets",
+   "False"
+  ],
+  [
+   "qt:qtwebview",
+   "False"
+  ],
+  [
+   "qt:qtwinextras",
+   "False"
+  ],
+  [
+   "qt:qtx11extras",
+   "False"
+  ],
+  [
+   "qt:qtxmlpatterns",
+   "False"
+  ],
+  [
    "qt:shared",
    "True"
   ],
@@ -962,10 +966,6 @@
   ],
   [
    "qt:widgets",
-   "True"
-  ],
-  [
-   "qt:with_brotli",
    "True"
   ],
   [
@@ -990,7 +990,7 @@
   ],
   [
    "qt:with_harfbuzz",
-   "True"
+   "False"
   ],
   [
    "qt:with_icu",
@@ -998,7 +998,7 @@
   ],
   [
    "qt:with_libjpeg",
-   "False"
+   "libjpeg"
   ],
   [
    "qt:with_libpng",
@@ -1006,7 +1006,7 @@
   ],
   [
    "qt:with_mysql",
-   "False"
+   "True"
   ],
   [
    "qt:with_odbc",
@@ -1030,7 +1030,7 @@
   ],
   [
    "qt:with_zstd",
-   "False"
+   "True"
   ],
   [
    "sqlite3:build_executable",
@@ -1154,6 +1154,10 @@
   ],
   [
    "zlib:shared",
+   "True"
+  ],
+  [
+   "zstd:shared",
    "True"
   ]
  ],

@@ -11,7 +11,3 @@ AddressBar::AddressBar(QWidget *parent) : QLineEdit(parent) {
     setFont(QFont("Purisa", 15));
 }
 
-void AddressBar::EditAddress() {
-
-}
-
