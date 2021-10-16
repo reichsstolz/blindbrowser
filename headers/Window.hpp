@@ -11,14 +11,17 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QGridLayout>
+#include <QLineEdit>
 
 // https://ravesli.com/urok-6-osnovy-raboty-s-gui-v-qt5/
 // файл главного окна
 #include "Keyboard.hpp"
 #include "MatrixWidget.hpp"
+#include "AddressBar.h"
 
-class Window: public QWidget {
+class Window : public QWidget {
 private:
+    AddressBar *adress_bar; //указатель на виджет адресной строку
     Keyboard *keyboard_box; //указатель на виджет клавиатуры
     MatrixWidget *matrix_box; //указатель на дисплей
 
@@ -26,7 +29,6 @@ private:
 
 public:
     explicit Window(QWidget *parent = nullptr);
-    void InitUI();  // инициализация интерфейса
 };
 
 

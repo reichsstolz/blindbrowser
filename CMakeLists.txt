@@ -19,7 +19,7 @@ project(BlindBrowser)
 conan_basic_setup()
 
 
-#find_package(Qt5  COMPONENTS Widgets Core)
+find_package(Qt5  COMPONENTS Widgets Core)
 
 #find_package(Boost COMPONENTS python)
 
@@ -28,7 +28,7 @@ add_library(${PROJECT_NAME} STATIC
         ./src/Keyboard.cpp
         ./src/Window.cpp
         ./python_files/PyFunctions.cpp
-        )
+        src/AddressBar.cpp)
 
 add_executable(demo main.cpp)
 
