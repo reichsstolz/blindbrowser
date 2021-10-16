@@ -17,8 +17,8 @@
 
 ## Build project
 
-``` Bashs
-cd build`
+``` Bash
+cd build
 conan install . && cd ..
 cmake . -B build_bb
 cmake --build build_bb
