@@ -4,6 +4,8 @@ python_files/temp_js
 .idea
 cmake-build-debug
 test
+.Makefile.swp
+.qmake.stash
 build/BlindBrowser_autogen
 build/lib
 build/Makefile

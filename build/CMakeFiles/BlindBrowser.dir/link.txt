@@ -1,2 +1,0 @@
-/usr/bin/ar qc lib/libBlindBrowser.a  CMakeFiles/BlindBrowser.dir/BlindBrowser_autogen/mocs_compilation.cpp.o CMakeFiles/BlindBrowser.dir/src/MatrixWidget.cpp.o CMakeFiles/BlindBrowser.dir/src/Keyboard.cpp.o CMakeFiles/BlindBrowser.dir/src/Window.cpp.o CMakeFiles/BlindBrowser.dir/python_files/PyFunctions.cpp.o CMakeFiles/BlindBrowser.dir/src/AddressBar.cpp.o
-/usr/bin/ranlib lib/libBlindBrowser.a

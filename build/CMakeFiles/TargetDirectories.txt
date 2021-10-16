@@ -1,6 +1,0 @@
-/home/arty/labs/blindbrowser/build/CMakeFiles/rebuild_cache.dir
-/home/arty/labs/blindbrowser/build/CMakeFiles/edit_cache.dir
-/home/arty/labs/blindbrowser/build/CMakeFiles/demo.dir
-/home/arty/labs/blindbrowser/build/CMakeFiles/BlindBrowser.dir
-/home/arty/labs/blindbrowser/build/CMakeFiles/demo_autogen.dir
-/home/arty/labs/blindbrowser/build/CMakeFiles/BlindBrowser_autogen.dir
