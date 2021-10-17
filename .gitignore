@@ -4,9 +4,9 @@ python_files/temp_js
 .idea
 cmake-build-debug
 build_bb
-build/conan.lock
-build/conanbuildinfo.cmake
-build/conanbuildinfo.txt
-build/conaninfo.txt
-build/qt.conf
-build/graph_info.json
+/conan/conaninfo.txt
+/conan/graph_info.json
+/conan/qt.conf
+/conan/conanbuildinfo.txt
+/conan/conanbuildinfo.cmake
+/conan/conan.lock

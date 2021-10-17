@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 set(CONAN_DISABLE_CHECK_COMPILER ON)
-include(build/conanbuildinfo.cmake)
+include(conan/conanbuildinfo.cmake)
 
 
 include_directories(${CONAN_INCLUDE_DIRS})
@@ -33,8 +33,11 @@ add_library(${PROJECT_NAME} STATIC
         ./src/PyFunctions.cpp
         )
 
-add_executable(demo main.cpp)
+add_custom_target(pyfiles ALL
+        COMMAND python3 ${PROJECT_SOURCE_DIR}/build_clion.py )
 
+add_executable(demo main.cpp)
+add_dependencies(demo pyfiles)
 include_directories(${BOOST_INCLUDE_DIRS})
 include_directories(${PYTHON_INCLUDE_DIRS})
 

@@ -1,5 +1,5 @@
 import re, sys
-import threading
+import threading, json
 
 class Request(threading.Thread):
         def __init__(self, make_request, handle_request, url):
@@ -12,30 +12,24 @@ class Request(threading.Thread):
 
 
 class CssDeclaration:
-    def __init__(self, type, attr):
-        self.attrs = attr
-        self.id = None
-        self._class = None
-        self.tag = None
+    def __init__(self, type, attrs):
+        self.attrs = attrs
+        self.type = type
 
-        if type[0] == "#":
-            self.id = type
 
-        if re.match(r"[a-zA-Z_\-]{0,}\.[a-zA-Z_\-]{1,}", type):
-            if type.count(".") > 1:
-                self._class = type
-            else:
-                self.tag, self._class = type.split(".")
+    def toJSON(self):
+        self.clear_attrs()
+        return json.dumps(self, default=lambda o: o.__dict__,
+            sort_keys=True, indent=4)
 
-        elif re.match("[a-zA-Z_\-]{1,}", type):
-            self.tag = type
-        if not self.tag:
-            self.tag = None
-
+    def clear_attrs(self):
+       allowed_attrs = ["height", "width", "top", "bottom", "position", "left", "right", "margin", "display", "margin-bottom", "margin-right", "margin-left", "margin-top", "float"]
+       for attr in self.attrs:
+           if not  attr in allowed_attrs:
+               self.attrs.pop(attr)
 
         # add attr delete
-    def get_relation():
-        return (self.tag, self._class, self.id)
+
 
 
 class Tag:
@@ -47,5 +41,9 @@ class Tag:
         self.children = []
         self.data = None
 
-    def add_children(self, kid):
+    def add_child(self, kid):
         self.children.append(kid)
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+            sort_keys=True, indent=4)

@@ -7,12 +7,10 @@
 
 
 #include <string>
-#include <utility>
 #include <vector>
 #include <map>
-#include <memory>
 #include <iostream>
-
+#include <regex>
 /*#pragma push_macro("slots")
 #undef slots
 #include <boost/python.hpp>
@@ -21,18 +19,17 @@
 namespace py = pybind11;
 using std::string;
 using std::vector;
-//using namespace boost::python;
 
 class Tag{
 public:
     string tag_type;
     string data;
-    vector<std::unique_ptr<Tag>> children;
+    vector<string> children;
     std::map<string, string> attrs;
-    Tag(string  tag_type_, string  data_, vector<std::unique_ptr<Tag>> children_, std::map<string, string> attrs_ ): tag_type(std::move(tag_type_)), data(std::move(data_)), children(std::move(children_)), attrs(std::move(attrs_)){}
+    Tag(const string& json);
 };
 
-void return_req();
+string return_req(const string& url);
 
 
 
