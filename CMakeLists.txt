@@ -9,8 +9,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 set(CONAN_DISABLE_CHECK_COMPILER ON)
-include(build/conanbuildinfo.cmake)
 
+include(build/conan_paths.cmake)
+include(build/conanbuildinfo.cmake)
 
 include_directories(${CONAN_INCLUDE_DIRS})
 
@@ -19,9 +20,7 @@ project(BlindBrowser)
 conan_basic_setup()
 
 
-find_package(Qt5  COMPONENTS Widgets Core)
-
-#find_package(Boost COMPONENTS python)
+find_package(Qt6  COMPONENTS Widgets Core)
 
 add_library(${PROJECT_NAME} STATIC
         ./src/MatrixWidget.cpp
