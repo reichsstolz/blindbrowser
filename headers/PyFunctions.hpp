@@ -13,14 +13,15 @@
 #include <memory>
 #include <iostream>
 
-#pragma push_macro("slots")
+/*#pragma push_macro("slots")
 #undef slots
 #include <boost/python.hpp>
-#pragma pop_macro("slots")
-
+#pragma pop_macro("slots")*/
+#include <pybind11/embed.h>
+namespace py = pybind11;
 using std::string;
 using std::vector;
-using namespace boost::python;
+//using namespace boost::python;
 
 class Tag{
 public:
@@ -31,7 +32,7 @@ public:
     Tag(string  tag_type_, string  data_, vector<std::unique_ptr<Tag>> children_, std::map<string, string> attrs_ ): tag_type(std::move(tag_type_)), data(std::move(data_)), children(std::move(children_)), attrs(std::move(attrs_)){}
 };
 
-string return_req(string url);
+void return_req();
 
 
 

@@ -19,10 +19,10 @@ string return_req(string url){
         python::object my_python_class_module = python::import("MainClasses");
 
         // >>> dog = MyPythonClass.Dog()
-        python::object browser = my_python_class_module.attr("Browser")();
+        python::object dog = my_python_class_module.attr("Browser")();
 
         // >>> dog.bark("woof");
-        browser.attr("_make_request")(url);
+        dog.attr("_make_request")(url);
     }
     catch (const python::error_already_set&)
     {

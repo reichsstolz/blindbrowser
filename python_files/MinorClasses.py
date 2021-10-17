@@ -17,26 +17,22 @@ class CssDeclaration:
         self.id = None
         self._class = None
         self.tag = None
-        try:
-            if type[0] == "#":
-                self.id = type
 
-            if re.match(r"[a-zA-Z_\-]{0,}\.[a-zA-Z_\-]{1,}", type):
-                if type.count(".") > 1:
-                    self._class = type
-                else:
-                    self.tag, self._class = type.split(".")
+        if type[0] == "#":
+            self.id = type
 
-            elif re.match("[a-zA-Z_\-]{1,}", type):
-                self.tag = type
+        if re.match(r"[a-zA-Z_\-]{0,}\.[a-zA-Z_\-]{1,}", type):
+            if type.count(".") > 1:
+                self._class = type
+            else:
+                self.tag, self._class = type.split(".")
 
-            if not self.tag:
-                self.tag = None
-        except Exception as e:
-            print(e)
-            print("\n\n AN OCCASION\n\n")
-            print(type, attr)
-            sys.exit()
+        elif re.match("[a-zA-Z_\-]{1,}", type):
+            self.tag = type
+        if not self.tag:
+            self.tag = None
+
+
         # add attr delete
     def get_relation():
         return (self.tag, self._class, self.id)
