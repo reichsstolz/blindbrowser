@@ -2,7 +2,7 @@ from html.entities import name2codepoint
 from html.parser import HTMLParser
 from MinorClasses import *
 import re, os, hashlib
-import requests as r
+import urllib.request
 
 
 class Browser(HTMLParser):
@@ -23,16 +23,10 @@ class Browser(HTMLParser):
             self.current_url = re.search(
                 r"https:\/\/[a-zA-Z0-9.-]{1,}|http:\/\/[a-zA-Z0-9.-]{1,}", url).group(0)
 
-        try:
-            resp = r.get(url)
-            text = resp.text
-        except Exception as e:
-            print("\nREQUEST FAILED {}\n".format(url))
-            text = r.get(url).text
+        resp = urllib.request.urlopen(url)
+        text = resp.read()
+        return  text.decode("utf-8")
 
-        finally:
-            print(len (text))
-            return  text
 
     def _post_request(self, url):
         pass
@@ -47,13 +41,13 @@ class Browser(HTMLParser):
             if not "," in tags:
                 for types in tags.split(" "):
                     if types:
-                        css_tree.append(CssDeclaration(types, temp_attrs))
+                        self.css_list.append(CssDeclaration(types, temp_attrs))
             else:
                 for types in tags.split(","):
                     if types:
-                        css_tree.append(CssDeclaration(types, temp_attrs))
+                        self.css_list.append(CssDeclaration(types, temp_attrs))
             temp_attrs.clear()
-        self.css_list+=css_tree
+
 
     def _handle_js(self, js_text):
         if not os.path.exists("temp_js"):
@@ -78,21 +72,22 @@ class Browser(HTMLParser):
         if (tag == "link"
             and new_tag.parameters.get("rel") == "stylesheet"
             and new_tag.parameters.get("href")):
+                pass
                 newreq=Request(self._make_request, self._handle_css, new_tag.parameters.get("href"))
                 newreq.start()
 
         if tag == "script" and new_tag.parameters.get("src"):
             newreq=Request(self._make_request, self._handle_js, new_tag.parameters.get("src"))
             newreq.start()
-            #self.handle_js(self.get_request(new_tag.parameters.get("src"), True))
+            #print("found src  ", new_tag.parameters.get("src"))
+            #self._handle_js(self._make_request(new_tag.parameters.get("src"), True))
 
         if self.parent_tag:
             self.parent_tag[-1].add_children(new_tag)
         self.parent_tag.append(new_tag)
-        #    print("     attr:", attr)
+
 
     def handle_endtag(self, tag):
-        # print("End tag  :", tag)
         tag = self.parent_tag.pop()
         if tag.tag_type == "html":
             self.tree = tag

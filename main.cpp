@@ -9,6 +9,6 @@ int main(int argc, char *argv[]) {
     Window MainWindow;
     MainWindow.show();
     return QApplication::exec();*/
-    std::cout<<return_req("https://github.com");
+    return_req();
     return 0;
 }

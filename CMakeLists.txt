@@ -21,14 +21,14 @@ conan_basic_setup()
 
 find_package(PythonLibs REQUIRED)
 set(CMAKE_SHARED_MODULE_PREFIX "")
-
+#find_package(Qt5  COMPONENTS Widgets Core)
 #find_package(Boost COMPONENTS python)
 
 add_library(${PROJECT_NAME} STATIC
         #./src/MatrixWidget.cpp
         #./src/Keyboard.cpp
         #./src/Window.cpp
-        ./python_files/PyFunctions.cpp
+        ./src/PyFunctions.cpp
         )
 
 add_executable(demo main.cpp)
@@ -41,6 +41,3 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "$<INSTALL_INTERFACE:headers>"
         )
 target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS} ${PYTHON_LIBRARIES})
-
-
-
