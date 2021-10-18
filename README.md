@@ -15,12 +15,4 @@
 ## Prototype
 ![](pics/blindbrowser.png)
 
-## Build project
-
-``` Bash
-cd build
-conan install . && cd ..
-cmake . -B build_bb
-cmake --build build_bb
-```
 
