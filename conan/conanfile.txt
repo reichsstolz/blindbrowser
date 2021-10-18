@@ -1,5 +1,6 @@
 [requires]
  pybind11/2.7.1
+ nlohmann_json/3.10.3
 [generators]
  cmake
 [options]
