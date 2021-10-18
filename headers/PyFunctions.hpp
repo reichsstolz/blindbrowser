@@ -16,11 +16,11 @@
 // for convenience
 using json = nlohmann::json;
 
-/*#pragma push_macro("slots")
+#pragma push_macro("slots")
 #undef slots
-#include <boost/python.hpp>
-#pragma pop_macro("slots")*/
 #include <pybind11/embed.h>
+#pragma pop_macro("slots")
+
 namespace py = pybind11;
 using std::string;
 using std::vector;
