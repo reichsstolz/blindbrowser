@@ -1,14 +1,14 @@
 //
 // Created by reichsstolz on 02.10.2021.
 //
-//#include <Window.hpp>
+#include <Window.hpp>
 #include <PyFunctions.hpp>
 
 int main(int argc, char *argv[]) {
-    /*QApplication app(argc, argv);
+    QApplication app(argc, argv);
     Window MainWindow;
     MainWindow.show();
-    return QApplication::exec();*/
+    return QApplication::exec();
 
     /*
      * JSON TIME
@@ -23,5 +23,5 @@ int main(int argc, char *argv[]) {
      * std::cout<< tags[0]["children"][0]<<std::endl;
      * std::cout<< tags[0]["data"];
      */
-    return 0;
+    //return 0;
 }
