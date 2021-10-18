@@ -9,6 +9,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 set(CONAN_DISABLE_CHECK_COMPILER ON)
+
+include(conan/conan_paths.cmake)
 include(conan/conanbuildinfo.cmake)
 
 
@@ -18,23 +20,17 @@ project(BlindBrowser)
 
 conan_basic_setup()
 
-find_package(Python 3.8 COMPONENTS Interpreter Development REQUIRED)
-find_package(PythonLibs REQUIRED)
 
+find_package(Qt6  COMPONENTS Widgets Core)
 
-set(CMAKE_SHARED_MODULE_PREFIX "")
-#find_package(Qt5  COMPONENTS Widgets Core)
-#find_package(Boost COMPONENTS python)
 
 add_library(${PROJECT_NAME} STATIC
-        #./src/MatrixWidget.cpp
-        #./src/Keyboard.cpp
-        #./src/Window.cpp
+        ./src/MatrixWidget.cpp
+        ./src/Keyboard.cpp
+        ./src/Window.cpp
         ./src/PyFunctions.cpp
+        ./src/AddressBar.cpp
         )
-
-add_custom_target(pyfiles ALL
-        COMMAND python3 ${PROJECT_SOURCE_DIR}/build_clion.py )
 
 add_executable(demo main.cpp)
 add_dependencies(demo pyfiles)
@@ -46,4 +42,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/headers>"
         "$<INSTALL_INTERFACE:headers>"
         )
-target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS} ${PYTHON_LIBRARIES})
+
+target_link_libraries(demo ${PROJECT_NAME} ${CONAN_LIBS})
+
+
