@@ -20,8 +20,10 @@ int main(int argc, char *argv[]) {
      * you can use them just like list and dict in Python
      *
      * std::cout<< tags[0]["children"]<<std::endl;
-     * std::cout<< tags[0]["children"][0]<<std::endl;
+     * std::cout<< tags[0]["childrstd::cout<< tags[0]["children"]<<std::endl;en"][0]<<std::endl;
      * std::cout<< tags[0]["data"];
      */
+    std::vector<json> tags (make_json(return_req("https://vk.com")));
+    std::cout<< tags[0]["children"]<<std::endl;
     //return 0;
 }
