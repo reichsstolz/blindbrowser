@@ -8,4 +8,5 @@
  cmake_paths
  cmake_find_package
 [options]
-*:shared=True
+odbc:shared=False
+qt:shared=True

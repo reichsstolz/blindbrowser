@@ -1,6 +1,6 @@
-python_files/test.py
+pyfiles/test.py
 __pycache__
-python_files/temp_js
+pyfiles/temp_js
 .idea
 cmake-build-debug
 build_bb
