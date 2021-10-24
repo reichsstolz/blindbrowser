@@ -6,7 +6,7 @@
 //#include "AddressBar.moc"
 #include "moc_AddressBar.cpp"
 
-AddressBar::AddressBar(QWidget *parent) : QLineEdit(parent) {
+AddressBar::AddressBar(QWidget *parent) : QPushButton(parent) {
     setMinimumHeight(30);
     setFont(QFont("Purisa", 15));
 }

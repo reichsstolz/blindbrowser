@@ -16,5 +16,5 @@ Window::Window(QWidget *parent) : QWidget(parent), address_bar(new AddressBar(th
     grid->addWidget(keyboard_box, 2, 0, Qt::AlignTop);
     setLayout(grid); //setting grid
 
-    //connect(address_bar, &AddressBar::EditAddress, matrix_box, &MatrixWidget::OpenInputMode);
+    connect(address_bar, &QPushButton::clicked, matrix_box, &MatrixWidget::OpenInputMode);
 }

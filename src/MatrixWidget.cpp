@@ -27,6 +27,10 @@ MatrixWidget::MatrixWidget(QWidget *parent): QFrame(parent) {
     setLayout(grid);
 }
 
+void MatrixWidget::BuildPage() {
+
+}
+
 void MatrixWidget::OpenInputMode() {
 
 }

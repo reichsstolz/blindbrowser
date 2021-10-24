@@ -15,7 +15,7 @@
 
 class MatrixWidget : public QFrame {
 Q_OBJECT
-    std::array<std::array<QLabel *, 10>, 20> matrix_symbols{};
+    std::array<std::array<QLabel *, 10>, 20> matrix_symbols{}; //массив
 
 public:
     explicit MatrixWidget(QWidget *parent = nullptr);
@@ -23,8 +23,8 @@ public:
     ~MatrixWidget() override = default;
 
 public slots:
-
-    void OpenInputMode();
+    void BuildPage(); //получает на вход дерево, обрабатывает его и строит страничку
+    void OpenInputMode(); //запускает режим ввода текста
 
 signals:
 

@@ -6,11 +6,10 @@
 #define BLINDBROWSER_ADDRESSBAR_HPP
 
 #include <QObject>
-#include <QLineEdit>
+#include <QPushButton>
 //#include "AddressBar.moc"
-//
 
-class AddressBar : public QLineEdit {
+class AddressBar : public QPushButton {
 Q_OBJECT
 public:
     explicit AddressBar(QWidget *parent = nullptr);
@@ -21,7 +20,7 @@ public slots:
 
 signals:
 
-    void EditAddress();
+
 };
 
 
