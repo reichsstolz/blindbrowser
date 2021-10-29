@@ -150,30 +150,5 @@ class Browser(HTMLParser):
         print("Decl     :", data)
 
 
-class Storage:
-    def __init__(self):
-        self.js_files = []
-        self.css_list = []
-        self.html_tree = None
-
-    def add_js_files(self, js_files):
-        self.js_files += js_files
-
-    def add_css(self, css_list):
-        self.css_list += css_list
-
-    def add_html(self, tree):
-        self.html_tree = tree
-
-    def compare_css_html(self):
-        pass
-
-    def restore(self):  # delete all files
-        for file in self.js_files:
-            os.remove("temp_js/" + file + ".js")
-        self.js_files = []
-        self.css_dictionary = []
-        self.html_tree = None
-
 
 browser = Browser()

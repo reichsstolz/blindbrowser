@@ -13,4 +13,5 @@ def make_request(url):
     # browser.restore()
     return req_json
 
-
+def post_request(url):
+    pass
