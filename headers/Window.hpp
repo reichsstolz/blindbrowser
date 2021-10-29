@@ -13,8 +13,6 @@
 #include <QGridLayout>
 #include <QLineEdit>
 
-// https://ravesli.com/urok-6-osnovy-raboty-s-gui-v-qt5/
-// файл главного окна
 #include "Keyboard.hpp"
 #include "MatrixWidget.hpp"
 #include "AddressBar.hpp"

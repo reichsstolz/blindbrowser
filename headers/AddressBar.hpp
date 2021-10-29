@@ -7,10 +7,12 @@
 
 #include <QObject>
 #include <QPushButton>
+#include <array>
 //#include "AddressBar.moc"
 
 class AddressBar : public QPushButton {
 Q_OBJECT
+    std::array<std::array<QPushButton *, 10>, 20> matrix_symbols{};
 public:
     explicit AddressBar(QWidget *parent = nullptr);
 
