@@ -2,7 +2,7 @@ from html.entities import name2codepoint
 from html.parser import HTMLParser
 from MinorClasses import *
 import re, os, hashlib, copy
-import urllib.request
+from urllib import request, parse
 
 
 class Browser(HTMLParser):
@@ -26,12 +26,16 @@ class Browser(HTMLParser):
                 r"https:\/\/[a-zA-Z0-9.-]{1,}|http:\/\/[a-zA-Z0-9.-]{1,}", url
             ).group(0)
 
-        resp = urllib.request.urlopen(url)
+        resp = request.urlopen(url)
         text = resp.read()
         return text.decode("utf-8")
 
-    def _post_request(self, url):
-        pass
+    def _post_request(self, url, data):
+        data = json.loads(data)
+        data = parse.urlencode(data).encode()
+        req = request.Request(url, data)
+        resp = request.urlopen(req)
+        return resp.read().decode("utf-8")
 
     def _handle_css(self, parsed):
 
@@ -148,7 +152,3 @@ class Browser(HTMLParser):
 
     def handle_decl(self, data):
         print("Decl     :", data)
-
-
-
-browser = Browser()
