@@ -5,9 +5,9 @@
 #include <PyFunctions.hpp>
 
 int main(int argc, char *argv[]) {
-    //std::vector<json> tags (make_json(post_req("https://yandex.ru/search/", "{\"text\": \"Van Darkholm\"}")));
-    std::cout<<post_req("https://yandex.ru/search/", "{\"text\": \"Van Darkholm\"}")<<std::endl;
-    //std::cout<< tags[0]["children"]<<std::endl;
+    std::vector<json> tags (make_json(post_req("https://yandex.ru/search/", "{\"text\": \"Van Darkholm\"}")));
+    //std::cout<<post_req("https://yandex.ru/search/", "{\"text\": \"Van Darkholm\"}")<<std::endl;
+    std::cout<< tags[3]["tag_type"]<<std::endl;
     QApplication app(argc, argv);
     Window MainWindow;
     MainWindow.show();
@@ -24,10 +24,6 @@ int main(int argc, char *argv[]) {
       <button method="post"
 
       А на полях ввода указаны имена параметров, в которые нужно записать введённые данные
-
-      Единственный наш враг это JavaScript я пока думаю через какие параметры браузер передаёт, что Js у него выключен
-
-      Подробные инструкции в PyFunctions.cpp
 
      */
 
