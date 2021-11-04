@@ -34,7 +34,9 @@ public:
     Tag(const string& json);
 };*/
 
-string return_req(const string& url);
+string get_req(const string& url);
+
+string post_req(const string& url, const string& data);
 
 vector<json> make_json(const string& req);
 
