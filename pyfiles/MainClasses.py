@@ -2,7 +2,7 @@ from html.entities import name2codepoint
 from html.parser import HTMLParser
 from MinorClasses import *
 import re, os, hashlib, copy
-import urllib.request
+from urllib import request, parse
 
 
 class Browser(HTMLParser):
@@ -26,12 +26,16 @@ class Browser(HTMLParser):
                 r"https:\/\/[a-zA-Z0-9.-]{1,}|http:\/\/[a-zA-Z0-9.-]{1,}", url
             ).group(0)
 
-        resp = urllib.request.urlopen(url)
+        resp = request.urlopen(url)
         text = resp.read()
         return text.decode("utf-8")
 
-    def _post_request(self, url):
-        pass
+    def _post_request(self, url, data):
+        data = json.loads(data)
+        data = parse.urlencode(data).encode()
+        req = request.Request(url, data)
+        resp = request.urlopen(req)
+        return resp.read().decode("utf-8")
 
     def _handle_css(self, parsed):
 
@@ -148,32 +152,3 @@ class Browser(HTMLParser):
 
     def handle_decl(self, data):
         print("Decl     :", data)
-
-
-class Storage:
-    def __init__(self):
-        self.js_files = []
-        self.css_list = []
-        self.html_tree = None
-
-    def add_js_files(self, js_files):
-        self.js_files += js_files
-
-    def add_css(self, css_list):
-        self.css_list += css_list
-
-    def add_html(self, tree):
-        self.html_tree = tree
-
-    def compare_css_html(self):
-        pass
-
-    def restore(self):  # delete all files
-        for file in self.js_files:
-            os.remove("temp_js/" + file + ".js")
-        self.js_files = []
-        self.css_dictionary = []
-        self.html_tree = None
-
-
-browser = Browser()

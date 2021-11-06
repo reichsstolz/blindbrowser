@@ -5,25 +5,19 @@
 #include <PyFunctions.hpp>
 
 int main(int argc, char *argv[]) {
+    std::vector<json> tags (make_json(post_req("https://yandex.ru/search/", "{\"text\": \"Van Darkholm\"}")));
+    //std::cout<<post_req("https://yandex.ru/search/", "{\"text\": \"Van Darkholm\"}")<<std::endl;
+    std::cout<< tags[3]["tag_type"]<<std::endl;
     QApplication app(argc, argv);
     Window MainWindow;
     MainWindow.show();
     return QApplication::exec();
 
     /*
-     * JSON TIME
-     *
-     * std::vector<json> tags (make_json(return_req("https://vk.com")));
-     *
-     * json example  for Artem
-     * make_json returns a vector with json objects
-     * you can use them just like list and dict in Python
-     *
-     * std::cout<< tags[0]["children"]<<std::endl;
-     * std::cout<< tags[0]["childrstd::cout<< tags[0]["children"]<<std::endl;en"][0]<<std::endl;
-     * std::cout<< tags[0]["data"];
+      Post Requests
+      Обычно в параметрах кнопок указаны методы передачи информации
+      Например
+      <button method="post"
+      А на полях ввода указаны имена параметров, в которые нужно записать введённые данные
      */
-    std::vector<json> tags (make_json(return_req("https://vk.com")));
-    std::cout<< tags[0]["children"]<<std::endl;
-    //return 0;
 }
