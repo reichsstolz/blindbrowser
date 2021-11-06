@@ -16,6 +16,9 @@ Window::Window(QWidget *parent) : QWidget(parent), address_bar(new AddressBar(th
     grid->addWidget(keyboard_box, 2, 0, Qt::AlignTop);
     setLayout(grid); //setting grid
 
+    //нажатие на кнопку скрола Keyboard скролит MatrixWidget
+    connect(keyboard_box, &Keyboard::Scroll, matrix_box, &MatrixWidget::ChangeLocatorAndUpdate);
+
     //нажатие на адресную строку открывает режим ввода для этой адресной строки, повторно нажатие закрывает этот режим
     connect(address_bar, &QPushButton::clicked, matrix_box, [&]{
         if(address_bar->isCheckable()){

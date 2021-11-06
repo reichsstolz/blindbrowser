@@ -36,6 +36,8 @@ public slots:
 signals:
     //сигнал окончания ввода символа для определенной кнопки MatrixWidget
     void EnteredSymbol(size_t symbol, size_t row, size_t colomn);
+    //сигнал скролла ленты вверх или вниз
+    void Scroll(std::string scroll_direction);
 };
 
 

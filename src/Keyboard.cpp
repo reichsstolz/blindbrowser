@@ -28,6 +28,14 @@ Keyboard::Keyboard(QWidget *parent) : QWidget((parent)) {
     grid->addWidget(keyboard_buttons[2], 2, 0);
     grid->addWidget(keyboard_buttons[5], 2, 1);
 
+    //функция, скролящие страницу
+    connect(keyboard_buttons[1], &QPushButton::clicked, this, [this](){
+        emit Scroll("up");
+    });
+    connect(keyboard_buttons[4], &QPushButton::clicked, this, [this](){
+        emit Scroll("down");
+    });
+
     grid->setSpacing(0);
     grid->setVerticalSpacing(0);
 
@@ -66,6 +74,14 @@ void Keyboard::CloseInputMode() {
     keyboard_buttons[4]->setText("down");
     keyboard_buttons[2]->setText(".");
     keyboard_buttons[5]->setText(".");
+
+    //функция, скролящие страницу
+    connect(keyboard_buttons[1], &QPushButton::clicked, this, [this](){
+        emit Scroll("up");
+    });
+    connect(keyboard_buttons[4], &QPushButton::clicked, this, [this](){
+        emit Scroll("down");
+    });
 }
 
 void Keyboard::InputSymbol(size_t row, size_t colomn) {
