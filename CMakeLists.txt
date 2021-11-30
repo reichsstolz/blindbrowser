@@ -31,6 +31,7 @@ add_library(${PROJECT_NAME} STATIC
         ./src/Window.cpp
         ./src/PyFunctions.cpp
         ./src/AddressBar.cpp
+        ./src/Dictionary.cpp
         )
 add_custom_target(pyfiles ALL
         COMMAND python3 ${PROJECT_SOURCE_DIR}/build_clion.py )

@@ -7,12 +7,13 @@
 
 #include <QObject>
 #include <QPushButton>
-#include <array>
+#include <string>
 //#include "AddressBar.moc"
 
 class AddressBar : public QPushButton {
 Q_OBJECT
-    std::array<std::array<QPushButton *, 10>, 20> matrix_symbols{};
+    //домен текущей страницы
+    std::string current_url;
 public:
     explicit AddressBar(QWidget *parent = nullptr);
 
@@ -20,8 +21,16 @@ public:
 
 public slots:
 
+    //обработка введенного пользователем домена
+    void ProcessURL(const std::string &entered_url);
+
+    //возвращает текущий домен
+    std::string GetCurrentURL();
+
 signals:
 
+    //сигнал, означающий, что обработка введенного домена закончена, необходимо построить страницу
+    void OpenPage(std::string domain);
 
 };
 
