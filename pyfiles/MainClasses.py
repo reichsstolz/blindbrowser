@@ -34,6 +34,13 @@ class Browser(HTMLParser):
         data = json.loads(data)
         data = parse.urlencode(data).encode()
         req = request.Request(url, data)
+        req.add_header("Sec-Ch-Ua", '"Chromium";v="95", ";Not A Brand";v="99"')
+        req.add_header("Sec-Ch-Ua-Mobile", "?0")
+        req.add_header("Sec-Ch-Ua-Platform", "Linux")
+        req.add_header(
+            "User-Agent",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36",
+        )
         resp = request.urlopen(req)
         return resp.read().decode("utf-8")
 
