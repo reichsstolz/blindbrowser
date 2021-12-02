@@ -40,7 +40,9 @@ string post_req(const string& url, const string& data);
 
 vector<json> make_json(const string& req);
 
+string trans_brail(const string& str);
 
+string trans_ascii(const string& brail);
 
 
 
