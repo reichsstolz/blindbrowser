@@ -46,3 +46,19 @@ vector<json> make_json(const string& req) {
     }
     return tags;
 }
+
+string trans_brail(const string& str){
+  py::scoped_interpreter guard{};
+
+  py::module_ mainfile = py::module_::import("functions");
+  string brail = mainfile.attr("trans_brail")(str).cast<string>();
+  return brail;
+}
+
+string trans_ascii(const string& brail){
+  py::scoped_interpreter guard{};
+
+  py::module_ mainfile = py::module_::import("functions");
+  string str = mainfile.attr("trans_brail")(brail).cast<string>();
+  return str;
+}
