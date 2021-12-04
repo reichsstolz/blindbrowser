@@ -88,16 +88,20 @@ void Keyboard::CloseInputMode() {
 
 void Keyboard::InputSymbol(size_t row, size_t column) {
     UnblockAllButtons();
-    std::string input_value("000000:");
+    input_value = "000000:";
     for (size_t i = 0; i < 6; ++i) {
         keyboard_buttons[i]->setText("");
         //отключает предыдущие функции, за которые отвечали кнопки Keyboard
         disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
         //устанавливает функции ввода для новых кнопок
-        connect(keyboard_buttons[i], &QPushButton::clicked, this, [&] {
+        connect(keyboard_buttons[i], &QPushButton::clicked, this, [=] {
             //если эта точка уже была нажата, то ввод заканчивается
             if (input_value[i] == '1') {
                 BlockAllButtons();
+                //для очастки символа символа необходимо нажать на все точки
+                if(input_value == "111111:"){
+                    input_value = "000000:";
+                }
                 emit EnteredSymbol(input_value, row, column);
             } else {
                 input_value[i] = '1';

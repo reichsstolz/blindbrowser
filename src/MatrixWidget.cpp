@@ -10,12 +10,12 @@
 #include <QStyle>
 #include "moc_MatrixWidget.cpp"
 
-MatrixWidget::MatrixWidget(QWidget *parent) : QFrame(parent){
+MatrixWidget::MatrixWidget(QWidget *parent) : QFrame(parent) {
     setFrameStyle(QFrame::Box);
     auto *grid = new QGridLayout(this);
 
-    for (int row = 0; row < 20; ++row) {
-        for (int column = 0; column < 10; ++column) {
+    for (size_t row = 0; row < 20; ++row) {
+        for (size_t column = 0; column < 10; ++column) {
             //Создаем кнопочки, задаем их размер
             matrix_symbols[row][column] = new QPushButton(this);
             matrix_symbols[row][column]->setMinimumSize(15, 15);
@@ -33,9 +33,8 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QFrame(parent){
 
     //Строим страницу, изначально должна строиться страница базовая страница какого-то поисковика,
     //то есть функция получает в качестве параметра домен базовой страницы
-    BuildPage(
-            "https://www.google.com/search?q=Gayparty&client=ms-android-xiaomi-rev1&ei=XfukYbKUJ4bbrgTg9ra4Dw&oq=Gayparty&gs_lcp=ChNtb2JpbGUtZ3dzLXdpei1zZXJwEAM6BAgAEEc6CggAELEDEIMBEEM6CAgAEIAEELEDOgUIABCABDoECAAQQzoNCC4QsQMQxwEQ0QMQQzoHCAAQsQMQQzoKCC4QxwEQowIQQzoECC4QQzoLCAAQgAQQsQMQgwE6CAgAELEDEIMBOggILhCABBCxAzoICC4QsQMQgwE6BggAEAoQQzoHCAAQgAQQCjoJCAAQChBGEP8BOgQIABAKUIoQWPNLYKFQaABwAXgBgAHNAYgB-AySAQUwLjkuMZgBAKABAbABAMgBCMABAQ&sclient=mobile-gws-wiz-serp");
-
+    std::string url("https://yandex.ru/");
+    BuildPage(url);
     //Изначально в режиме чтения все кнопки заблокированы
     BlockAllButtons();
 
@@ -46,23 +45,23 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QFrame(parent){
 }
 
 void MatrixWidget::BlockAllButtons() {
-    for (int row = 0; row < 20; ++row) {
-        for (int column = 0; column < 10; ++column) {
+    for (size_t row = 0; row < 20; ++row) {
+        for (size_t column = 0; column < 10; ++column) {
             matrix_symbols[row][column]->blockSignals(true);
         }
     }
 }
 
 void MatrixWidget::UnblockAllButtons() {
-    for (int row = 0; row < 20; ++row) {
-        for (int column = 0; column < 10; ++column) {
+    for (size_t row = 0; row < 20; ++row) {
+        for (size_t column = 0; column < 10; ++column) {
             matrix_symbols[row][column]->blockSignals(false);
         }
     }
 }
 
 void MatrixWidget::NormalizeInputValue() {
-    while(input_value.size() != 7 * 200){
+    while (input_value.size() <= 7 * 200) {
         input_value.append("000000:");
     }
 }
@@ -78,9 +77,6 @@ void MatrixWidget::ChangeLocatorAndUpdate(const std::string &offset) {
 }
 
 void MatrixWidget::BuildPage(const std::string &url) {
-
-    //ТУТ, при необходимости, ДОЛЖНА БЫТЬ КОНВЕРТАЦИЯ ИЗ БРАЙЛЯ url
-
     json tags(make_json(get_req(url)));
     //обрабатываем дерево
     std::string all_page_data;
@@ -95,25 +91,48 @@ void MatrixWidget::BuildPage(const std::string &url) {
     }
 
     //ТУТ ДОЛЖНА БЫТЬ КОНВЕРТАЦИЯ В БРАЙЛЬ all_page_data
+    all_page_data = trans_brail(all_page_data);
 
     //генерируем целое число блоков 20x10
-    all_site_symbols.resize((all_page_data.size() / 200 + 1) * 200);
+    //200-количество ячеек в блоке, 7 - длина последовательности 1 символа в Брайле
+    all_site_symbols.resize(
+            (all_page_data.size() / (200 * 7) + ((all_page_data.size() / 7 % 200) ? 1 : 0)) * 20); //надо дописать
     locator = 0;
 
     //заполняем вектор всех символов страницы
-    for (size_t row = 0; row < all_page_data.size(); ++row) {
-        for (size_t column = 0; column < 10; ++column) {
-            all_site_symbols[row][column] = all_page_data[10 * row + column];
+    size_t row = 0;
+    size_t column = 0;
+    while (!all_page_data.empty()) {
+        all_site_symbols[row][column] = all_page_data.substr(0, 7);
+        all_page_data.erase(0, 7);
+        column = (column + 1) % 10;
+        if (!column) {
+            ++row;
         }
     }
+
+    //дозаполним оставшиеся пустые символы пробелами
+    while (row % 20) {
+        all_site_symbols[row][column] = "000000:";
+        column = (column + 1) % 10;
+        if (!column) {
+            ++row;
+        }
+    }
+    /*for (size_t row = 0; row < all_page_data.size(); ++row) {
+        for (size_t column = 0; column < 10; ++column) {
+            all_site_symbols[row][column] = all_page_data.substr(0, 7);
+            all_page_data.erase(0, 7);
+        }
+    }*/
 
     //заполняем кнопки отображаемыми символами при текущей позиции locator
     UploadMatrix();
 }
 
 void MatrixWidget::UploadMatrix() {
-    for (int row = 0; row < 20; ++row) {
-        for (int column = 0; column < 10; ++column) {
+    for (size_t row = 0; row < 20; ++row) {
+        for (size_t column = 0; column < 10; ++column) {
             matrix_symbols[row][column]->setIcon(
                     *(Dictionary::getDictionary()[all_site_symbols[row + locator][column]]));
         }
@@ -121,25 +140,25 @@ void MatrixWidget::UploadMatrix() {
 }
 
 void MatrixWidget::OpenInputMode(const std::string &previous_value) {
+    input_value = trans_brail(previous_value);
     //нормализует вводимое пользователем значение, по умолчанию ставятся все пробелы, то есть "000000:000000:000000:..."
     NormalizeInputValue();
-    input_value = previous_value;
-    for (int row = 0; row < 20; ++row) {
-        for (int column = 0; column < 10; ++column) {
-            //поставить иконки с пустым текстом на Брайле
-            matrix_symbols[row][column]->setIcon(QIcon());
+    for (size_t row = 0; row < 20; ++row) {
+        for (size_t column = 0; column < 10; ++column) {
+            matrix_symbols[row][column]->setIcon(
+                    *(Dictionary::getDictionary()[input_value.substr(7 * (column + 10 * row), 7)]));
         }
     }
     UnblockAllButtons();
 }
 
 std::string MatrixWidget::GetEntered() {
-    return input_value;
+    return trans_ascii(input_value);
 }
 
 void MatrixWidget::CloseInputMode() {
-    for (int row = 0; row < 20; ++row) {
-        for (int column = 0; column < 10; ++column) {
+    for (size_t row = 0; row < 20; ++row) {
+        for (size_t column = 0; column < 10; ++column) {
             matrix_symbols[row][column]->setIcon(QIcon());
         }
     }
@@ -149,7 +168,7 @@ void MatrixWidget::CloseInputMode() {
 
 void MatrixWidget::SetSymbol(const std::string &symbol, size_t row, size_t column) {
     matrix_symbols[row][column]->setIcon(*(Dictionary::getDictionary()[symbol]));
-    for(size_t i = 0; i < 6; ++i){
+    for (size_t i = 0; i < 6; ++i) {
         input_value[i + 7 * (row + 1) * column] = symbol[i];
     }
     //matrix_symbols[row][column]->setIconSize(QSize(65, 65));

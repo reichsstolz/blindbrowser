@@ -16,6 +16,7 @@ class Keyboard : public QWidget {
 private:
 Q_OBJECT
     std::array<QPushButton *, 6> keyboard_buttons{}; //массив кнопок
+    std::string input_value;
 public:
     explicit Keyboard(QWidget *parent = nullptr);
 

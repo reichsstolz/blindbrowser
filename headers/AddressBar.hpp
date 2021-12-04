@@ -12,7 +12,7 @@
 
 class AddressBar : public QPushButton {
 Q_OBJECT
-    //домен текущей страницы
+    //ссылка текущей страницы
     std::string current_url;
 public:
     explicit AddressBar(QWidget *parent = nullptr);

@@ -59,6 +59,6 @@ string trans_ascii(const string& brail){
   py::scoped_interpreter guard{};
 
   py::module_ mainfile = py::module_::import("functions");
-  string str = mainfile.attr("trans_brail")(brail).cast<string>();
+  string str = mainfile.attr("trans_ascii")(brail).cast<string>();
   return str;
 }
