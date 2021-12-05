@@ -32,30 +32,31 @@ public:
     //разблокирует все кнопки
     void UnblockAllButtons();
 
-    //нормализует строку ввода
+    //нормализует строку ввода, заполняя ее пробелами
     void NormalizeInputValue();
 
-public slots:
+public
+    slots:
     //обновляет показываемые матрицей значения в соответствии с текущим положение locator
     void ChangeLocatorAndUpdate(const std::string &offset);
 
     //строит страницу, получает ее домен в качестве параметра
-    void BuildPage(const std::string& url);
+    void BuildPage(const std::string &url);
 
     //обновляет кнопки символами, которые должны в них находится при текущей позиции locator
     void UploadMatrix();
 
     //запускает режим ввода текста, выводит уже введенное до этого значение
-    void OpenInputMode(const std::string& previous_value);
+    void OpenInputMode(const std::string &previous_value);
 
-    //возвращает введенную пользователем строку
+    //возвращает введенную пользователем строку в ASCII
     std::string GetEntered();
 
     //закрываем режим ввода
     void CloseInputMode();
 
     //устанавливает символ в указанную ячейку после ввода с клавиатуры
-    void SetSymbol(const std::string& symbol, size_t row, size_t colomn);
+    void SetSymbol(const std::string &symbol, size_t row, size_t colomn);
 
 signals:
 

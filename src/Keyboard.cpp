@@ -9,14 +9,8 @@
 #include <string>
 
 Keyboard::Keyboard(QWidget *parent) : QWidget((parent)) {
-    keyboard_buttons[0] = new QPushButton("<-", this);
-    keyboard_buttons[3] = new QPushButton("->", this);
-    keyboard_buttons[1] = new QPushButton("up", this);
-    keyboard_buttons[4] = new QPushButton("down", this);
-    keyboard_buttons[2] = new QPushButton(".", this);
-    keyboard_buttons[5] = new QPushButton(".", this);
-
     for (size_t i = 0; i < 6; ++i) {
+        keyboard_buttons[i] = new QPushButton(this);
         keyboard_buttons[i]->setMinimumSize(200, 50);
         keyboard_buttons[i]->setFont(QFont("Purisa", 15));
     }
@@ -30,13 +24,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget((parent)) {
     grid->addWidget(keyboard_buttons[2], 2, 0);
     grid->addWidget(keyboard_buttons[5], 2, 1);
 
-    //функция, скролящие страницу
-    connect(keyboard_buttons[1], &QPushButton::clicked, this, [this]() {
-        emit Scroll("up");
-    });
-    connect(keyboard_buttons[4], &QPushButton::clicked, this, [this]() {
-        emit Scroll("down");
-    });
+    //устанавливаем функции кнопок и текст на них
+    ReturnButtonsFunctions();
 
     grid->setSpacing(0);
     grid->setVerticalSpacing(0);
@@ -57,19 +46,7 @@ void Keyboard::UnblockAllButtons() {
     }
 }
 
-void Keyboard::OpenInputMode() {
-    BlockAllButtons();
-    for (size_t i = 0; i < 6; ++i) {
-        keyboard_buttons[i]->setText("");
-        //disconnect the previous connections, <-, ->, up, down and etc
-        disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
-    }
-}
-
-void Keyboard::CloseInputMode() {
-    for (size_t i = 0; i < 6; ++i) {
-        disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
-    }
+void Keyboard::ReturnButtonsFunctions() {
     keyboard_buttons[0]->setText("<-");
     keyboard_buttons[3]->setText("->");
     keyboard_buttons[1]->setText("up");
@@ -84,6 +61,33 @@ void Keyboard::CloseInputMode() {
     connect(keyboard_buttons[4], &QPushButton::clicked, this, [this]() {
         emit Scroll("down");
     });
+
+    //функция, реализующая переход к предыдущей или последующей странице
+    connect(keyboard_buttons[0], &QPushButton::clicked, this, [this]() {
+        emit ForwardBackward("backward");
+    });
+    connect(keyboard_buttons[3], &QPushButton::clicked, this, [this]() {
+        emit ForwardBackward("forward");
+    });
+}
+
+void Keyboard::OpenInputMode() {
+    BlockAllButtons();
+    for (size_t i = 0; i < 6; ++i) {
+        keyboard_buttons[i]->setText("");
+        //disconnect the previous connections, <-, ->, up, down and etc
+        disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
+    }
+}
+
+void Keyboard::CloseInputMode() {
+    for (size_t i = 0; i < 6; ++i) {
+        disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
+    }
+
+    ReturnButtonsFunctions();
+
+    UnblockAllButtons();
 }
 
 void Keyboard::InputSymbol(size_t row, size_t column) {
@@ -99,7 +103,7 @@ void Keyboard::InputSymbol(size_t row, size_t column) {
             if (input_value[i] == '1') {
                 BlockAllButtons();
                 //для очастки символа символа необходимо нажать на все точки
-                if(input_value == "111111:"){
+                if (input_value == "111111:") {
                     input_value = "000000:";
                 }
                 emit EnteredSymbol(input_value, row, column);

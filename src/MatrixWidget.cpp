@@ -19,7 +19,6 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QFrame(parent) {
             //Создаем кнопочки, задаем их размер
             matrix_symbols[row][column] = new QPushButton(this);
             matrix_symbols[row][column]->setMinimumSize(15, 15);
-            //matrix_symbols[row][column]->setFont(QFont("Purisa", 10));
 
             //Нажатие на любую кнопку в режиме ввода генерирует сигнал, означающий необходимость ввода символа
             //Однако работает это только в режиме ввода
@@ -32,9 +31,8 @@ MatrixWidget::MatrixWidget(QWidget *parent) : QFrame(parent) {
     }
 
     //Строим страницу, изначально должна строиться страница базовая страница какого-то поисковика,
-    //то есть функция получает в качестве параметра домен базовой страницы
-    std::string url("https://yandex.ru/");
-    BuildPage(url);
+    //то есть функция получает в качестве параметра URL базовой страницы
+    BuildPage("https://yandex.ru/");
     //Изначально в режиме чтения все кнопки заблокированы
     BlockAllButtons();
 
@@ -77,8 +75,9 @@ void MatrixWidget::ChangeLocatorAndUpdate(const std::string &offset) {
 }
 
 void MatrixWidget::BuildPage(const std::string &url) {
+
     json tags(make_json(get_req(url)));
-    //обрабатываем дерево
+    //обрабатываем дерево тегов
     std::string all_page_data;
     for (auto &tag: tags) {
         if (!tag["data"].empty() && (tag["tag_type"] != "script") && (tag["tag_type"] != "style") &&
@@ -90,13 +89,14 @@ void MatrixWidget::BuildPage(const std::string &url) {
         }
     }
 
-    //ТУТ ДОЛЖНА БЫТЬ КОНВЕРТАЦИЯ В БРАЙЛЬ all_page_data
+    //конвертация в Брайль
     all_page_data = trans_brail(all_page_data);
 
-    //генерируем целое число блоков 20x10
+    //генерируем целое число блоков 20x10 символов страницы
     //200-количество ячеек в блоке, 7 - длина последовательности 1 символа в Брайле
     all_site_symbols.resize(
-            (all_page_data.size() / (200 * 7) + ((all_page_data.size() / 7 % 200) ? 1 : 0)) * 20); //надо дописать
+            (all_page_data.size() / (200 * 7) + ((all_page_data.size() / 7 % 200) ? 1 : 0)) * 20);
+    //возрщащаем ползунок в начальное положение
     locator = 0;
 
     //заполняем вектор всех символов страницы
@@ -119,12 +119,6 @@ void MatrixWidget::BuildPage(const std::string &url) {
             ++row;
         }
     }
-    /*for (size_t row = 0; row < all_page_data.size(); ++row) {
-        for (size_t column = 0; column < 10; ++column) {
-            all_site_symbols[row][column] = all_page_data.substr(0, 7);
-            all_page_data.erase(0, 7);
-        }
-    }*/
 
     //заполняем кнопки отображаемыми символами при текущей позиции locator
     UploadMatrix();
@@ -169,9 +163,8 @@ void MatrixWidget::CloseInputMode() {
 void MatrixWidget::SetSymbol(const std::string &symbol, size_t row, size_t column) {
     matrix_symbols[row][column]->setIcon(*(Dictionary::getDictionary()[symbol]));
     for (size_t i = 0; i < 6; ++i) {
-        input_value[i + 7 * (row + 1) * column] = symbol[i];
+        input_value[i + 7 * column + 7 * 10 * row] = symbol[i];
     }
-    //matrix_symbols[row][column]->setIconSize(QSize(65, 65));
     //особенность перехода на следующую кнопку при окончании ввода значения в предыдущую
     ++column;
     column %= 10;

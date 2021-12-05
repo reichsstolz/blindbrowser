@@ -26,6 +26,9 @@ public:
 
     void UnblockAllButtons();
 
+    //устанавливает функции кнопок и текст на них
+    void ReturnButtonsFunctions();
+
 public slots:
 
     //открывает режим ввода
@@ -40,10 +43,13 @@ public slots:
 signals:
 
     //сигнал окончания ввода символа для определенной кнопки MatrixWidget
-    void EnteredSymbol(const std::string& symbol, size_t row, size_t colomn);
+    void EnteredSymbol(const std::string &symbol, size_t row, size_t colomn);
 
     //сигнал скролла ленты вверх или вниз
     void Scroll(std::string scroll_direction);
+
+    //сигнал о переходе к предыдущей или последующей странице
+    void ForwardBackward(std::string go_direction);
 };
 
 

@@ -99,6 +99,7 @@ def trans_brail(data):
 
 
 def trans_ascii(data):
+    data = data[:-1]
     data = data.split(":")
     initial_str = ""
     digits = 0

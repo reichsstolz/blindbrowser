@@ -8,12 +8,16 @@
 #include <QObject>
 #include <QPushButton>
 #include <string>
+#include <vector>
+#include <iterator>
 //#include "AddressBar.moc"
 
 class AddressBar : public QPushButton {
 Q_OBJECT
-    //ссылка текущей страницы
-    std::string current_url;
+    //история всех ссылок страниц, хранится в ASCII
+    std::vector<std::string> url_history{"https://yandex.ru/"};
+    //итератор, указывающий на текущую страницу
+    std::vector<std::string>::const_iterator current_url;
 public:
     explicit AddressBar(QWidget *parent = nullptr);
 
@@ -26,6 +30,9 @@ public slots:
 
     //возвращает текущий домен
     std::string GetCurrentURL();
+
+    //переходит на страницу вперед/назад
+    void GoToForwardBackwardPage(const std::string &direction);
 
 signals:
 

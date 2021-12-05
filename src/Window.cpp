@@ -20,6 +20,9 @@ Window::Window(QWidget *parent) : QWidget(parent), address_bar(new AddressBar(th
     //нажатие на кнопку скрола Keyboard скролит MatrixWidget
     connect(keyboard_box, &Keyboard::Scroll, matrix_box, &MatrixWidget::ChangeLocatorAndUpdate);
 
+    //нажатие на кнопку перехода на страницу вперед/назад меняет страницу
+    connect(keyboard_box, &Keyboard::ForwardBackward, address_bar, &AddressBar::GoToForwardBackwardPage);
+
     //нажатие на адресную строку открывает режим ввода для этой адресной строки, повторно нажатие закрывает этот режим
     connect(address_bar, &QPushButton::clicked, matrix_box, [&] {
         if (address_bar->isCheckable()) {
