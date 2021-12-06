@@ -7,3 +7,5 @@ build_bb
 
 conan/*
 !conan/conanfile.txt
+
+pics/Braille.png

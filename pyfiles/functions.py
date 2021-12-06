@@ -34,11 +34,14 @@ alphabet = {
     "konv": "001111",
     "A": "000001",
     ".": "010011",
+    ",": "010000",
     "/": "001001",
-    "?": "010010",
-    "@": "001110",
-    "=": "011101",
-    "+": "110011",
+    "?": "010001",
+    "@": "011011",
+    "=": "000011",
+    "+": "001110",
+    ":": "010010",
+    ";": "011000"
 }
 rev_apl = {}
 keys = list(alphabet.keys())
@@ -89,18 +92,20 @@ def trans_brail(data):
                 initial_str += alphabet["konv"]
                 initial_str += ":"
             initial_str += alphabet[i.lower()]
+        else:
+            initial_str+="000000"
         initial_str += ":"
-    return initial_str[:-1]
+    return initial_str
 
 
 def trans_ascii(data):
+    data = data[:-1]
     data = data.split(":")
     initial_str = ""
     digits = 0
     up = False
     values = list(alphabet.values())
     for i in data:
-        print(i)
         if rev_apl.get(i) == "konv":
             digits += 1
             digits %= 2
