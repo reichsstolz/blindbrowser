@@ -1,15 +1,17 @@
-//
-// Created by arty on 27.11.2021.
-//
+// Copyright 2021 Tinkerrer
 
 #include <Dictionary.hpp>
-#include <iostream>
+#include <QDir>
 
-Dictionary::Dictionary() : dictionary_path(QDir::current()) {
+Dictionary::Dictionary()  {
+    //путь до директории с картинками
+    auto dictionary_path=QDir::current();
     //добираемся до директории с картинками
     dictionary_path.cdUp();
     dictionary_path.cdUp();
     dictionary_path.cd(dictionary_path.path() + "/pics/Braille.ico");
+
+    //добавляем элементы в словарь
     dictionary_pictures_map.insert({
         //буквы и цифры
         {"100000:", new QIcon(dictionary_path.path() + "/A1.ico")},
@@ -45,14 +47,13 @@ Dictionary::Dictionary() : dictionary_path(QDir::current()) {
         {"010000:", new QIcon(dictionary_path.path() + "/Comma.ico")},
         {"000011:", new QIcon(dictionary_path.path() + "/Equality.ico")},
         {"011010:", new QIcon(dictionary_path.path() + "/ExclamationPoint.ico")},
-        {"001001:", new QIcon(dictionary_path.path() + "/Slash.ico")},
-        {"110001:", new QIcon(dictionary_path.path() + "/ParanthesisOpen.ico")},
         {"001110:", new QIcon(dictionary_path.path() + "/Plus.ico")},
         {"010011:", new QIcon(dictionary_path.path() + "/Point.ico")},
         {"010001:", new QIcon(dictionary_path.path() + "/QuestionMark.ico")},
         {"001011:", new QIcon(dictionary_path.path() + "/QuoteClose.ico")},
         {"011001:", new QIcon(dictionary_path.path() + "/QuoteOpen.ico")},
         {"011000:", new QIcon(dictionary_path.path() + "/Semicolon.ico")},
+        {"001001:", new QIcon(dictionary_path.path() + "/Slash.ico")},
         //служебные символы
         {"000001:", new QIcon(dictionary_path.path() + "/CapitalSign.ico")},
         {"001111:", new QIcon(dictionary_path.path() + "/NumberSign.ico")},
@@ -71,5 +72,10 @@ Dictionary &Dictionary::getDictionary() {
 }
 
 const QIcon *Dictionary::operator[](const std::string& binary_number) {
-    return dictionary_pictures_map[binary_number];
+    try{
+        return dictionary_pictures_map[binary_number];
+    }
+    catch(...){
+        return dictionary_pictures_map["000000:"];
+    }
 }

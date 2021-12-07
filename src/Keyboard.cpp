@@ -1,6 +1,4 @@
-//
-// Created by reichsstolz on 02.10.2021.
-//
+// Copyright 2021 Tinkerrer
 
 #include <QGridLayout>
 #include "Keyboard.hpp"
@@ -9,14 +7,15 @@
 #include <string>
 
 Keyboard::Keyboard(QWidget *parent) : QWidget((parent)) {
-    for (size_t i = 0; i < 6; ++i) {
-        keyboard_buttons[i] = new QPushButton(this);
-        keyboard_buttons[i]->setMinimumSize(200, 50);
-        keyboard_buttons[i]->setFont(QFont("Purisa", 15));
+    //создание кнопок
+    for (auto& button: keyboard_buttons) {
+        button = new QPushButton(this);
+        button->setMinimumSize(200, 50);
+        button->setFont(QFont("Purisa", 15));
     }
 
+    //установка кнопок в сетку
     QGridLayout *grid = new QGridLayout(this);
-
     grid->addWidget(keyboard_buttons[0], 0, 0);
     grid->addWidget(keyboard_buttons[3], 0, 1);
     grid->addWidget(keyboard_buttons[1], 1, 0);
@@ -24,29 +23,29 @@ Keyboard::Keyboard(QWidget *parent) : QWidget((parent)) {
     grid->addWidget(keyboard_buttons[2], 2, 0);
     grid->addWidget(keyboard_buttons[5], 2, 1);
 
-    //устанавливаем функции кнопок и текст на них
+    //устанавливаем функций кнопок и текст на них
     ReturnButtonsFunctions();
 
+    //установка расстояний между кнопками в сетке
     grid->setSpacing(0);
     grid->setVerticalSpacing(0);
-
     setLayout(grid);
-
 }
 
 void Keyboard::BlockAllButtons() {
-    for (size_t i = 0; i < 6; ++i) {
-        keyboard_buttons[i]->blockSignals(true);
+    for (auto& button: keyboard_buttons) {
+        button->blockSignals(true);
     }
 }
 
 void Keyboard::UnblockAllButtons() {
-    for (size_t i = 0; i < 6; ++i) {
-        keyboard_buttons[i]->blockSignals(false);
+    for (auto& button: keyboard_buttons) {
+        button->blockSignals(false);
     }
 }
 
 void Keyboard::ReturnButtonsFunctions() {
+    //установка текста
     keyboard_buttons[0]->setText("<-");
     keyboard_buttons[3]->setText("->");
     keyboard_buttons[1]->setText("up");
@@ -54,7 +53,7 @@ void Keyboard::ReturnButtonsFunctions() {
     keyboard_buttons[2]->setText(".");
     keyboard_buttons[5]->setText(".");
 
-    //функция, скролящие страницу
+    //функция, скролящиая страницу
     connect(keyboard_buttons[1], &QPushButton::clicked, this, [this]() {
         emit Scroll("up");
     });
@@ -73,18 +72,19 @@ void Keyboard::ReturnButtonsFunctions() {
 
 void Keyboard::OpenInputMode() {
     BlockAllButtons();
-    for (size_t i = 0; i < 6; ++i) {
-        keyboard_buttons[i]->setText("");
-        //disconnect the previous connections, <-, ->, up, down and etc
-        disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
+    for (auto& button: keyboard_buttons) {
+        button->setText("");
+        //удаляет все предыдущие зависимости кнопок, <-, ->, up, down and etc
+        disconnect(button, &QPushButton::clicked, nullptr, nullptr);
     }
 }
 
 void Keyboard::CloseInputMode() {
-    for (size_t i = 0; i < 6; ++i) {
-        disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
+    for (auto& button: keyboard_buttons) {
+        disconnect(button, &QPushButton::clicked, nullptr, nullptr);
     }
 
+    //возвращаем предыдущие зависимости основных кнопок
     ReturnButtonsFunctions();
 
     UnblockAllButtons();
@@ -92,17 +92,21 @@ void Keyboard::CloseInputMode() {
 
 void Keyboard::InputSymbol(size_t row, size_t column) {
     UnblockAllButtons();
+
+    //вводимое значение по умолчанию - пробел
     input_value = "000000:";
+
     for (size_t i = 0; i < 6; ++i) {
+        //отключает предыдущие функции, за которые отвечали кнопки Keyboard, чистит текст в них
         keyboard_buttons[i]->setText("");
-        //отключает предыдущие функции, за которые отвечали кнопки Keyboard
         disconnect(keyboard_buttons[i], nullptr, nullptr, nullptr);
+
         //устанавливает функции ввода для новых кнопок
         connect(keyboard_buttons[i], &QPushButton::clicked, this, [=] {
-            //если эта точка уже была нажата, то ввод заканчивается
+            //если эта кнопка уже была нажата, то ввод заканчивается
             if (input_value[i] == '1') {
                 BlockAllButtons();
-                //для очастки символа символа необходимо нажать на все точки
+                //для очастки символа символа необходимо нажать на все кнопки
                 if (input_value == "111111:") {
                     input_value = "000000:";
                 }

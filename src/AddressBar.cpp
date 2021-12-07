@@ -1,15 +1,9 @@
-//
-// Created by arty on 16.10.2021.
-//
+// Copyright 2021 Tinkerrer
 
 #include "AddressBar.hpp"
-//#include "AddressBar.moc"
 #include "moc_AddressBar.cpp"
 
-AddressBar::AddressBar(QWidget *parent) : QPushButton(parent), current_url(url_history.begin()) {
-    setMinimumHeight(30);
-    setFont(QFont("Purisa", 15));
-}
+AddressBar::AddressBar(QWidget *parent) : QPushButton(parent), current_url(url_history.begin()) {}
 
 void AddressBar::ProcessURL(const std::string &entered_url) {
     if (current_url != url_history.cend() - 1) {

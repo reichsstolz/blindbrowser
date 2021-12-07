@@ -1,6 +1,4 @@
-//
-// Created by reichsstolz on 02.10.2021.
-//
+// Copyright 2021 Tinkerrer
 
 #ifndef BLINDBROWSER_BUTTONS_H
 #define BLINDBROWSER_BUTTONS_H
@@ -8,25 +6,28 @@
 #include <QWidget>
 #include <QApplication>
 #include <QPushButton>
-#include <QLabel>
 #include <array>
 
 class Keyboard : public QWidget {
 
 private:
 Q_OBJECT
-    std::array<QPushButton *, 6> keyboard_buttons{}; //массив кнопок
+    //массив указателей на основные рабочие кнопки
+    std::array<QPushButton *, 6> keyboard_buttons{};
+    //значение, введенное пользователем с клавиатуры
     std::string input_value;
 public:
     explicit Keyboard(QWidget *parent = nullptr);
 
     ~Keyboard() override = default;
 
+    //блокирует все рабочие кнопки
     void BlockAllButtons();
 
+    //разблокирует все рабочие кнопки
     void UnblockAllButtons();
 
-    //устанавливает функции кнопок и текст на них
+    //устанавливает функции основных рабочих кнопок и соответствующий им текст
     void ReturnButtonsFunctions();
 
 public slots:

@@ -1,6 +1,4 @@
-//
-// Created by reichsstolz on 02.10.2021.
-//
+// Copyright 2021 Tinkerrer
 
 #ifndef BLINDBROWSER_WINDOW_H
 #define BLINDBROWSER_WINDOW_H
@@ -19,11 +17,12 @@
 
 class Window : public QWidget {
 private:
-    AddressBar *address_bar; //указатель на виджет адресной строку
-    Keyboard *keyboard_box; //указатель на виджет клавиатуры
-    MatrixWidget *matrix_box; //указатель на дисплей
-
-    //void InputMode();  // наш телефон будет работать в режиме ввода, когда пользователь будет вводить данные
+    //указатель на виджет адресной строки
+    AddressBar *address_bar;
+    //указатель на виджет клавиатуры
+    Keyboard *keyboard_box;
+    //указатель на дисплей
+    MatrixWidget *matrix_box;
 
 public:
     explicit Window(QWidget *parent = nullptr);

@@ -1,6 +1,4 @@
-//
-// Created by arty on 16.10.2021.
-//
+// Copyright 2021 Tinkerrer
 
 #ifndef BLINDBROWSER_ADDRESSBAR_HPP
 #define BLINDBROWSER_ADDRESSBAR_HPP
@@ -10,11 +8,11 @@
 #include <string>
 #include <vector>
 #include <iterator>
-//#include "AddressBar.moc"
 
+//ссылочная кнопка, отвечает за переход по ссылкам, хранит историю бразуера
 class AddressBar : public QPushButton {
 Q_OBJECT
-    //история всех ссылок страниц, хранится в ASCII
+    //вектор всех ссылок страниц (история браузера), хранится в ASCII
     std::vector<std::string> url_history{"https://yandex.ru/"};
     //итератор, указывающий на текущую страницу
     std::vector<std::string>::const_iterator current_url;
@@ -23,20 +21,20 @@ public:
 
     ~AddressBar() override = default;
 
-public slots:
-
-    //обработка введенного пользователем домена
-    void ProcessURL(const std::string &entered_url);
-
     //возвращает текущий домен
     std::string GetCurrentURL();
 
-    //переходит на страницу вперед/назад
+public slots:
+
+    //обработка введенной пользователем ссылки, запускает открытие страницы
+    void ProcessURL(const std::string &entered_url);
+
+    //переходит на страницу вперед/назад, если это возможно
     void GoToForwardBackwardPage(const std::string &direction);
 
 signals:
 
-    //сигнал, означающий, что обработка введенного домена закончена, необходимо построить страницу
+    //означает, что обработка введенной url закончена, необходимо построить страницу
     void OpenPage(std::string domain);
 
 };
