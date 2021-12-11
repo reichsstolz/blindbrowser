@@ -1,6 +1,4 @@
-//
-// Created by reichsstolz on 10.10.2021.
-//
+//Copyright 2021 reichsstolz
 
 #ifndef BLINDBROWSER_PYFUNCTIONS_H
 #define BLINDBROWSER_PYFUNCTIONS_H
@@ -25,14 +23,6 @@ namespace py = pybind11;
 using std::string;
 using std::vector;
 
-/*class Tag{
-public:
-    string tag_type;
-    string data;
-    vector<string> children;
-    std::map<string, string> attrs;
-    Tag(const string& json);
-};*/
 
 string get_req(const string& url);
 

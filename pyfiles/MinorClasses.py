@@ -1,3 +1,4 @@
+# Copyright 2021 reichsstolz
 import re, sys
 import threading, json
 

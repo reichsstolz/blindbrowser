@@ -1,3 +1,5 @@
+# Copyright 2021 reichsstolz
+
 from html.entities import name2codepoint
 from html.parser import HTMLParser
 from MinorClasses import *

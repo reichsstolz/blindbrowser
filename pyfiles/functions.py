@@ -1,3 +1,5 @@
+# Copyright 2021 reichsstolz
+
 from MainClasses import *
 from MinorClasses import *
 

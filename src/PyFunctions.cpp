@@ -1,6 +1,4 @@
-//
-// Created by reichsstolz on 10.10.2021.
-//
+// Copyright 2021 reichsstolz
 
 #include "PyFunctions.hpp"
 /*
